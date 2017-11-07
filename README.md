@@ -14,8 +14,19 @@ Installation:
 ```
 composer install
 vagrant up
+vagrant ssh
 ```
+
+Inside the vagrant VM:
+
+```
+cd code
+cp .env.example .env
+php artisan key:generate
+php artisan migrate
+```
+
 
 Go to:
 
-http://192.168.10.90
+[http://192.168.10.90](http://192.168.10.90)
