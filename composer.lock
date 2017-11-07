@@ -4,8 +4,8 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
-    "hash": "106dcb117db2807361f638cf3d7d28d2",
-    "content-hash": "fe3c8bb035f7a516103a3738b32c91fc",
+    "hash": "4d5d3a5c99323c688a5b333f047f750b",
+    "content-hash": "9e774ab0bc0bb9fe213f46fb1f5cda42",
     "packages": [
         {
             "name": "dnoegel/php-xdg-base-dir",
@@ -651,6 +651,59 @@
                 }
             ],
             "time": "2015-04-20 18:58:01"
+        },
+        {
+            "name": "jeroennoten/laravel-adminlte",
+            "version": "v1.22.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/jeroennoten/Laravel-AdminLTE.git",
+                "reference": "7211b894d2e1594d9919f1bde1948c7668410129"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/jeroennoten/Laravel-AdminLTE/zipball/7211b894d2e1594d9919f1bde1948c7668410129",
+                "reference": "7211b894d2e1594d9919f1bde1948c7668410129",
+                "shasum": ""
+            },
+            "require": {
+                "laravel/framework": "~5.1.12|~5.2.0|~5.3.0|~5.4.0|~5.5.0",
+                "php": ">=5.5.9"
+            },
+            "require-dev": {
+                "phpunit/phpunit": "~4.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "JeroenNoten\\LaravelAdminLte\\ServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "JeroenNoten\\LaravelAdminLte\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Jeroen Noten",
+                    "email": "jeroennoten@me.com"
+                }
+            ],
+            "description": "Easy AdminLTE integration with Laravel",
+            "keywords": [
+                "AdminLTE",
+                "admin",
+                "administrator",
+                "laravel"
+            ],
+            "time": "2017-10-02 14:52:05"
         },
         {
             "name": "laravel/framework",
