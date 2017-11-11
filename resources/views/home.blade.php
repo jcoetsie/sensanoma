@@ -7,6 +7,7 @@
 @stop
 
 @section('content')
+    @include('layouts.flash')
     <div class="small-box bg-green">
         <div class="inner">
             <h3>53<sup style="font-size: 20px">%</sup></h3>
