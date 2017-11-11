@@ -32,7 +32,7 @@ return [
 
     'logo' => 'Sensanoma',
 
-    'logo_mini' => '<b>A</b>',
+    'logo_mini' => '<b>S</b>',
 
     /*
     |--------------------------------------------------------------------------
@@ -122,7 +122,7 @@ return [
         ],
         [
             'text' => 'Account',
-            'url'  => 'profile',
+            'url'  => 'account',
             'icon' => 'user',
         ]
     ],
