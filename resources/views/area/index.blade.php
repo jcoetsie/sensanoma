@@ -14,6 +14,9 @@
 		Area address : {{ $area->address }} <br>
 		account owner : {{ $area->account->name }}
 
+		<a href="{{ route('area.edit', $area) }}">
+			<button>Edit</button>
+		</a>
 		{{ html()->form('DELETE', route('area.destroy', $area->id))->open() }}
 
 		{{ html()->button('Delete') }}
