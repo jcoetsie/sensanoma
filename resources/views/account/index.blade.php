@@ -18,18 +18,27 @@
                         <th style="width: 80%;">Name</th>
                         <th>Options</th>
                     </tr>
-
                     <tr>
-                        <td>{{ $account->name }}</td>
+                        <td>
+                            <a href="{{ route('account.show', $account) }}">
+
+                                {{ $account->name }}
+
+                            </a>
+                        </td>
                             <td>
                                 <a href="{{ route('account.edit', $account) }}">
                                     <button type="button" class="btn btn-block btn-info">Update</button>
                                 </a>
                             </td>
                             <td>
-                                <a href="{{ route('account.destroy', $account) }}">
-                                    <button type="button" class="btn btn-block btn-danger">Delete</button>
-                                </a>
+
+                                {{ html()->form('DELETE', route('account.destroy', $account))->open() }}
+
+                                {{ html()->submit('Delete')->class('btn btn-danger') }}
+
+                                {{ html()->form()->close() }}
+
                             </td>
                     </tr>
                 </table>
@@ -39,5 +48,7 @@
         <a href="{{ route('account.create', $account) }}">
             <button type="button" class="btn btn-block btn-primary">Create an account</button>
         </a>
+        <hr>
+    @include('layouts.flash')
 
 @stop
