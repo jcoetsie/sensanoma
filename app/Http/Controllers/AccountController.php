@@ -58,7 +58,7 @@ class AccountController extends Controller
      */
     public function show(Account $account)
     {
-        //
+        return view('account.show', compact('account'));
     }
 
     /**
@@ -69,7 +69,7 @@ class AccountController extends Controller
      */
     public function edit(Account $account)
     {
-        return view('account.edit', compact($account));
+        return view('account.edit', compact('account'));
     }
 
     /**
@@ -81,7 +81,13 @@ class AccountController extends Controller
      */
     public function update(AccountRequest $request, Account $account)
     {
-        //
+        $find = Account::findOrFail($account->id);
+
+        $find->name = $request->get('name');
+
+        $find->save();
+
+        return Redirect(route('account.index'))->with('success','The account was updated');
     }
 
     /**
@@ -92,6 +98,8 @@ class AccountController extends Controller
      */
     public function destroy(Account $account)
     {
-        //
+        Account::destroy($account->id);
+
+        return Redirect(route('account.index'))->with('success','The account was deleted');
     }
 }

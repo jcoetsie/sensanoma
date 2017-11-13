@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddAccountIdToUsersTable extends Migration
+class CreateAreasTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,16 @@ class AddAccountIdToUsersTable extends Migration
      */
     public function up()
     {
-        Schema::table('users', function (Blueprint $table) {
+        Schema::create('areas', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('name');
+            $table->text('address');
+            $table->json('coordinates');
+
             $table->integer('account_id')->unsigned()->nullable();
-            $table->foreign('account_id')->references('id')->on('accounts')->onDelete('cascade');
+            $table->foreign('account_id')->references('id')->on('accounts');
+            
+            $table->timestamps();
         });
     }
 
@@ -26,9 +33,6 @@ class AddAccountIdToUsersTable extends Migration
      */
     public function down()
     {
-        Schema::table('users', function (Blueprint $table) {
-            $table->dropForeign('users_account_id_foreign');
-            $table->dropColumn(['account_id']);
-        });
+        Schema::dropIfExists('areas');
     }
 }
