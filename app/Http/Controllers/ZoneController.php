@@ -2,8 +2,10 @@
 
 namespace App\Http\Controllers;
 
+use App\Http\Requests\ZoneRequest;
+use App\Models\Area;
 use App\Models\Zone;
-use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class ZoneController extends Controller
 {
@@ -14,8 +16,9 @@ class ZoneController extends Controller
      */
     public function index()
     {
-        $zones = Auth::user()->account->areas->zone;
-        return view('zones.index', compact('zones'));
+        // Auth::user()->account->areas->zones..
+        $zones = Area::whereAccountId(Auth::id())->with(['account', 'zones'])->get();
+        return view('zone.index', compact('zones'));
     }
 
     /**
@@ -25,7 +28,7 @@ class ZoneController extends Controller
      */
     public function create()
     {
-        //
+        return view('zone.create');
     }
 
     /**
@@ -34,7 +37,7 @@ class ZoneController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(Request $request)
+    public function store(ZoneRequest $request)
     {
         //
     }
@@ -42,33 +45,33 @@ class ZoneController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Zone  $zones
+     * @param  \App\Models\Zone  $zone
      * @return \Illuminate\Http\Response
      */
-    public function show(Zone $zones)
+    public function show(Zone $zone)
     {
-        //
+        return view('zone.show', compact('zone'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Zone  $zones
+     * @param  \App\Models\Zone  $zone
      * @return \Illuminate\Http\Response
      */
-    public function edit(Zone $zones)
+    public function edit(Zone $zone)
     {
-        //
+        return view('zone.edit', compact('zone'));
     }
 
     /**
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Models\Zone  $zones
+     * @param  \App\Models\Zone  $zone
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Zone $zones)
+    public function update(ZoneRequest $request, Zone $zone)
     {
         //
     }
@@ -76,11 +79,13 @@ class ZoneController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Zone  $zones
+     * @param  \App\Models\Zone  $zone
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Zone $zones)
+    public function destroy(Zone $zone)
     {
-        //
+        $zone->destroy($zone->id);
+
+        return redirect(route('area.index'))->with('success', 'The Area has been deleted');
     }
 }
