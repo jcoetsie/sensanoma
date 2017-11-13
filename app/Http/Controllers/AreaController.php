@@ -38,6 +38,7 @@ class AreaController extends Controller
     public function store(AreaRequest $request)
     {
         Auth::user()->account->areas()->create($request->toArray());
+      
         return redirect(route('area.index'))->with('success', 'The Area has been created');
     }
 
@@ -74,7 +75,9 @@ class AreaController extends Controller
     public function update(AreaRequest $request, Area $area)
     {
         $area->update($request->toArray());
+
         return redirect(route('area.show', $area))->with('success', 'The Area has been updated');
+
     }
 
     /**
@@ -86,6 +89,7 @@ class AreaController extends Controller
     public function destroy(Area $area)
     {
         $area->destroy($area->id);
+      
         return redirect(route('area.index', $area))->with('danger', 'The Area has been deleted');
     }
 }

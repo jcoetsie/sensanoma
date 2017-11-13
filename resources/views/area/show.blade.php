@@ -2,6 +2,7 @@
 
 @section('title')
 
+
 @stop
 
 @section('content_header')
@@ -54,6 +55,7 @@
     <div id="area"></div>
     @include('layouts.flash')
 
+
 @stop
 
 
@@ -94,6 +96,7 @@
         <script src="https://maps.googleapis.com/maps/api/js?key= {{ env('GOOGLE_KEY') }} &libraries=drawing&callback=DrawMapWithPolygon"
         async defer></script>
     @endif
+
 
 @stop
 

@@ -21,4 +21,6 @@
         {{ html()->submit('submit changes')->class('btn btn-primary pull-right') }}
     </div>
     {{ html()->form()->close() }}
+
+    @include('layouts.flash')
 @stop

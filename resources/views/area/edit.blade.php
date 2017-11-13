@@ -18,6 +18,7 @@
 
 @section('content')
     {{ html()->form('PUT', route('area.update', $area))->open() }}
+
     <div class="box-body">
         <div class="form-group">
             {{ html()->label('Area name','name')}}
@@ -37,6 +38,7 @@
         <div class="form-group">
     {{ html()->submit('Update')->class('btn btn-primary pull-right') }}
         </div>
+
     {{ html()->form()->close() }}
 
     @include('layouts.flash')

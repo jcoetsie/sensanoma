@@ -17,6 +17,7 @@
 
 @section('content')
     {{ html()->form('POST', route('area.store'))->open() }}
+    
     <div class="box-body">
         <div class="form-group">
             {{ html()->label('Area name','name')}}
@@ -40,6 +41,7 @@
 
     {{ html()->submit('Create area')->class('btn btn-primary pull-right') }}
         </div>
+        
     {{ html()->form()->close() }}
 
     @include('layouts.flash')
