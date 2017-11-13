@@ -25,7 +25,7 @@ class AreaRequest extends FormRequest
     {
         return [
             'name' => 'required|min:3',
-            'address' => 'required|min3',
+            'address' => 'required|min:3',
             'coordinates' => 'required|json'
         ];
     }
