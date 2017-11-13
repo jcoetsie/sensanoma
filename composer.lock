@@ -4,7 +4,11 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file",
         "This file is @generated automatically"
     ],
+<<<<<<< HEAD
     "content-hash": "b90a8d00f1ed3ed483e15df047fe3611",
+=======
+    "content-hash": "4ff12afb78472cc34331ac9a6a4b1f1f",
+>>>>>>> 4a49fef17c235c1cfee69de678c33d52cac785e3
     "packages": [
         {
             "name": "barryvdh/laravel-ide-helper",
@@ -160,6 +164,7 @@
             ],
             "description": "implementation of xdg base directory specification for php",
             "time": "2014-10-24T07:27:01+00:00"
+<<<<<<< HEAD
         },
         {
             "name": "doctrine/annotations",
@@ -515,6 +520,8 @@
                 "queryobject"
             ],
             "time": "2017-08-28T11:02:56+00:00"
+=======
+>>>>>>> 4a49fef17c235c1cfee69de678c33d52cac785e3
         },
         {
             "name": "doctrine/inflector",
@@ -1310,7 +1317,11 @@
                 "framework",
                 "laravel"
             ],
+<<<<<<< HEAD
             "time": "2017-11-07T14:24:50+00:00"
+=======
+            "time": "2017-10-25T19:10:45+00:00"
+>>>>>>> 4a49fef17c235c1cfee69de678c33d52cac785e3
         },
         {
             "name": "laravel/tinker",
@@ -2080,6 +2091,77 @@
                 "uuid"
             ],
             "time": "2017-09-22T20:46:04+00:00"
+<<<<<<< HEAD
+=======
+        },
+        {
+            "name": "spatie/laravel-html",
+            "version": "2.10.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/spatie/laravel-html.git",
+                "reference": "92643fc000f763ad295fa5e22c76522fadf1e4a8"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/spatie/laravel-html/zipball/92643fc000f763ad295fa5e22c76522fadf1e4a8",
+                "reference": "92643fc000f763ad295fa5e22c76522fadf1e4a8",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/http": "~5.4",
+                "illuminate/support": "~5.4",
+                "php": "^7.0"
+            },
+            "require-dev": {
+                "mockery/mockery": "^0.9.7",
+                "phpunit/phpunit": "^6.0"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Spatie\\Html\\HtmlServiceProvider"
+                    ],
+                    "aliases": {
+                        "Html": "Spatie\\Html\\Facades\\Html"
+                    }
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Spatie\\Html\\": "src"
+                },
+                "files": [
+                    "src/helpers.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Sebastian De Deyne",
+                    "email": "sebastian@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Freek Van der Herten",
+                    "email": "freek@spatie.be",
+                    "homepage": "https://spatie.be",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A fluent html builder",
+            "homepage": "https://github.com/spatie/laravel-html",
+            "keywords": [
+                "html",
+                "spatie"
+            ],
+            "time": "2017-11-08T08:48:32+00:00"
+>>>>>>> 4a49fef17c235c1cfee69de678c33d52cac785e3
         },
         {
             "name": "swiftmailer/swiftmailer",
@@ -2135,6 +2217,7 @@
                 "mailer"
             ],
             "time": "2017-09-30T22:39:41+00:00"
+<<<<<<< HEAD
         },
         {
             "name": "symfony/class-loader",
@@ -2191,6 +2274,8 @@
             "description": "Symfony ClassLoader Component",
             "homepage": "https://symfony.com",
             "time": "2017-10-02T06:42:24+00:00"
+=======
+>>>>>>> 4a49fef17c235c1cfee69de678c33d52cac785e3
         },
         {
             "name": "symfony/console",
@@ -3127,7 +3212,11 @@
                 "constructor",
                 "instantiate"
             ],
+<<<<<<< HEAD
             "time": "2017-07-22T11:58:36+00:00"
+=======
+            "time": "2015-06-14T21:17:01+00:00"
+>>>>>>> 4a49fef17c235c1cfee69de678c33d52cac785e3
         },
         {
             "name": "filp/whoops",
@@ -4091,7 +4180,11 @@
                 "testing",
                 "xunit"
             ],
+<<<<<<< HEAD
             "time": "2017-11-08T11:26:09+00:00"
+=======
+            "time": "2017-10-16T13:18:59+00:00"
+>>>>>>> 4a49fef17c235c1cfee69de678c33d52cac785e3
         },
         {
             "name": "phpunit/phpunit-mock-objects",
