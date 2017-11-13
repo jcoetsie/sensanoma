@@ -8,26 +8,56 @@
 
 
 @section('content')
-	@foreach($areas as $area)
 
-		Area name : {{ $area->name }} <br>
-		Area address : {{ $area->address }} <br>
-		account owner : {{ $area->account->name }}
+	<div class="col-md-12">
+		<div class="box">
+			<div class="box-body no-padding">
+				<table class="table">
+					<tr>
+						<th style="width: 20%;">Name</th>
+						<th style="width: 40%">Address</th>
+						<th style="width: 20%">Account owner</th>
+					</tr>
+					@foreach($areas as $area)
+					<tr>
+						<td>
+							<a href="{{ route('area.show', $area) }}">
 
-		<a href="{{ route('area.edit', $area) }}">
-			<button>Edit</button>
-		</a>
-		{{ html()->form('DELETE', route('area.destroy', $area->id))->open() }}
+								{{ $area->name }}
 
-		{{ html()->button('Delete') }}
+							</a>
+						</td>
+						<td>
+								{{ $area->address }}
+						</td>
+						<td>
+								{{ $area->account->name }}
+						</td>
+						<td>
+							<a href="{{ route('area.edit', $area) }}">
+								<button type="button" class="btn btn-block btn-info">Edit</button>
+							</a>
+						</td>
+						<td>
 
-		{{ html()->form()->close() }}
+							{{ html()->form('DELETE', route('area.destroy', $area->id))->open() }}
 
-	@endforeach
+							{{ html()->submit('Delete')->class('btn btn-danger') }}
 
+							{{ html()->form()->close() }}
+
+						</td>
+					</tr>
+					@endforeach
+				</table>
+			</div>
+		</div>
+	</div>
 	<a href="{{ route('area.create') }}">
-		<button>Add a area</button>
+		<button type="button" class="btn btn-block btn-primary">Create an area</button>
 	</a>
+	<hr>
+	@include('layouts.flash')
 
 @stop
 

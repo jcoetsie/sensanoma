@@ -17,19 +17,29 @@
 
 @section('content')
     {{ html()->form('POST', route('area.store'))->open() }}
+    <div class="box-body">
+        <div class="form-group">
+            {{ html()->label('Area name','name')}}
 
-    {{ html()->text('name')->placeholder('Area Name') }}
-    {{ html()->text('address')->placeholder('Area address') }}
+            {{ html()->text('name')->class('form-control')->placeholder('Area Name') }}
+        </div>
+        <div class="form-group">
+            {{ html()->label('Address','address')}}
 
+            {{ html()->text('address')->class('form-control')->placeholder('Area address') }}
+        </div>
+        <div class="form-group">
 
-    <div onclick="makePolygon()">
-        {{ html()->text('coordinates')->placeholder('Area coordinates')->id('coordinates') }}
-    </div>
+        {{ html()->hidden('coordinates')->placeholder('Area coordinates')->id('coordinates') }}
+
+        <button onclick="makePolygon(); event.preventDefault();" class="btn btn-primary">Chose area</button>
 
     <div id="area" style="display: none"></div>
+        </div>
+        <div class="form-group">
 
-    {{ html()->submit('Create') }}
-
+    {{ html()->submit('Create area')->class('btn btn-primary pull-right') }}
+        </div>
     {{ html()->form()->close() }}
 
     @include('layouts.flash')
