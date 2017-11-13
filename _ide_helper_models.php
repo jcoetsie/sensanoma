@@ -16,12 +16,12 @@ namespace App\Models{
  * @property string $name
  * @property \Carbon\Carbon|null $created_at
  * @property \Carbon\Carbon|null $updated_at
- * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User[] $user
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Area[] $areas
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\User[] $users
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Account whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Account whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Account whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Account whereUpdatedAt($value)
- * @mixin \Eloquent
  */
 	class Account extends \Eloquent {}
 }
@@ -34,9 +34,11 @@ namespace App\Models{
  * @property string $name
  * @property string $address
  * @property mixed $coordinates
- * @property int $account_id
+ * @property int|null $account_id
  * @property \Carbon\Carbon|null $created_at
  * @property \Carbon\Carbon|null $updated_at
+ * @property-read \App\Models\Account|null $account
+ * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Zone[] $zones
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Area whereAccountId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Area whereAddress($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Area whereCoordinates($value)
@@ -44,82 +46,8 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Area whereId($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Area whereName($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Area whereUpdatedAt($value)
- * @mixin \Eloquent
  */
 	class Area extends \Eloquent {}
-}
-
-namespace App{
-/**
- * App\Sensor
- *
- * @property int $id
- * @property mixed $air_temp
- * @property mixed $air_hum
- * @property mixed $soil_temp
- * @property mixed $soil_hum
- * @property mixed $voltage
- * @property mixed $solar_energy
- * @property mixed $internal_temp
- * @property int $sensor_node_type
- * @property \Carbon\Carbon|null $created_at
- * @property \Carbon\Carbon|null $updated_at
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Sensor whereAirHum($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Sensor whereAirTemp($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Sensor whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Sensor whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Sensor whereInternalTemp($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Sensor whereSensorNodeType($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Sensor whereSoilHum($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Sensor whereSoilTemp($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Sensor whereSolarEnergy($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Sensor whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Sensor whereVoltage($value)
- * @mixin \Eloquent
- */
-	class Sensor extends \Eloquent {}
-}
-
-namespace App\Models{
-/**
- * App\Models\SensorNode
- *
- * @property int $id
- * @property string $name
- * @property int $accounts_id
- * @property int $zones_id
- * @property \Carbon\Carbon|null $created_at
- * @property \Carbon\Carbon|null $updated_at
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SensorNode whereAccountsId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SensorNode whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SensorNode whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SensorNode whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SensorNode whereUpdatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SensorNode whereZonesId($value)
- * @mixin \Eloquent
- */
-	class SensorNode extends \Eloquent {}
-}
-
-namespace App\Models{
-/**
- * App\Models\SensorNodeType
- *
- * @property int $id
- * @property string $name
- * @property string $type
- * @property int $sensor_nodes_id
- * @property \Carbon\Carbon|null $created_at
- * @property \Carbon\Carbon|null $updated_at
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SensorNodeType whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SensorNodeType whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SensorNodeType whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SensorNodeType whereSensorNodesId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SensorNodeType whereType($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\SensorNodeType whereUpdatedAt($value)
- * @mixin \Eloquent
- */
-	class SensorNodeType extends \Eloquent {}
 }
 
 namespace App\Models{
@@ -144,7 +72,6 @@ namespace App\Models{
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User wherePassword($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereRememberToken($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereUpdatedAt($value)
- * @mixin \Eloquent
  */
 	class User extends \Eloquent {}
 }
@@ -153,19 +80,7 @@ namespace App\Models{
 /**
  * App\Models\Zone
  *
- * @property int $id
- * @property string $name
- * @property string $crop
- * @property int $area_id
- * @property \Carbon\Carbon|null $created_at
- * @property \Carbon\Carbon|null $updated_at
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Zone whereAreaId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Zone whereCreatedAt($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Zone whereCrop($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Zone whereId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Zone whereName($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\Zone whereUpdatedAt($value)
- * @mixin \Eloquent
+ * @property-read \App\Models\Area $area
  */
 	class Zone extends \Eloquent {}
 }
