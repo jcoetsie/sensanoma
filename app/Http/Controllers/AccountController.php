@@ -58,7 +58,7 @@ class AccountController extends Controller
      */
     public function show(Account $account)
     {
-        //
+        return view('account.show', compact('account'));
     }
 
     /**
