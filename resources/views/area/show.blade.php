@@ -2,6 +2,9 @@
 
 @section('title')
 
+
+@stop
+
 @section('content_header')
     <h1>Area settings</h1>
 @stop
@@ -17,61 +20,82 @@
 
 @section('content')
 
+    <table class="table">
+        <tr>
+            <th style="width: 20%;">Name</th>
+            <th style="width: 40%">Address</th>
+            <th style="width: 20%">Account owner</th>
+        </tr>
+            <tr>
+                <td>
+                        {{ $area->name }}
+                </td>
+                <td>
+                    {{ $area->address }}
+                </td>
+                <td>
+                    {{ $area->account->name }}
+                </td>
+                <td>
+                    <a href="{{ route('area.edit', $area) }}">
+                        <button type="button" class="btn btn-block btn-info">Edit</button>
+                    </a>
+                </td>
+                <td>
 
-    Area name : {{ $area->name }} <br>
-    Area address : {{ $area->address }} <br>
-    account owner : {{ $area->account->name }}
+                    {{ html()->form('DELETE', route('area.destroy', $area->id))->open() }}
 
+                    {{ html()->submit('Delete')->class('btn btn-danger') }}
+
+                    {{ html()->form()->close() }}
+
+                </td>
+            </tr>
+    </table>
     <div id="area"></div>
-
-
-    <a href="{{ route('area.edit', $area) }}">
-        <button>Edit</button>
-    </a>
-    {{ html()->form('DELETE', route('area.destroy', $area->id))->open() }}
-
-    {{ html()->button('Delete') }}
-
-    {{ html()->form()->close() }}
+    @include('layouts.flash')
 
 
 @stop
 
 
 @section('js')
-    <script>
 
-    function DrawMapWithPolygon(myCoords) {
-    var map = new google.maps.Map(document.getElementById('area'), {
-    zoom: 10,
-    center: {lat: {{ $area->coordinates[0]->lat }}, lng: {{ $area->coordinates[0]->lng }} },
-    mapTypeId: 'terrain'
-    });
+    @if(!empty($area->coordinates[0]->lat))
+        <script>
 
-    var myCoords = [
-        @foreach($area->coordinates as $coordinate)
-            new google.maps.LatLng( {{ $coordinate->lat }}, {{ $coordinate->lng }} ),
-        @endforeach
-    ];
+        function DrawMapWithPolygon(myCoords) {
+        var map = new google.maps.Map(document.getElementById('area'), {
+        zoom: 10,
+        center: {lat: {{ $area->coordinates[0]->lat }}, lng: {{ $area->coordinates[0]->lng }} },
+        mapTypeId: 'terrain'
+        });
 
-    console.log(myCoords);
+        var myCoords = [
+            @foreach($area->coordinates as $coordinate)
+                new google.maps.LatLng( {{ $coordinate->lat }}, {{ $coordinate->lng }} ),
+            @endforeach
+        ];
 
-    // Construct the polygon.
-    var bermudaTriangle = new google.maps.Polygon({
-    paths: myCoords,
-    strokeColor: '#FF0000',
-    strokeOpacity: 0.8,
-    strokeWeight: 2,
-    fillColor: '#FF0000',
-    fillOpacity: 0.35
-    });
+        console.log(myCoords);
 
-    bermudaTriangle.setMap(map);
-    }
-    </script>
+        // Construct the polygon.
+        var bermudaTriangle = new google.maps.Polygon({
+        paths: myCoords,
+        strokeColor: '#FF0000',
+        strokeOpacity: 0.8,
+        strokeWeight: 2,
+        fillColor: '#FF0000',
+        fillOpacity: 0.35
+        });
 
-    <script src="https://maps.googleapis.com/maps/api/js?key= {{ env('GOOGLE_KEY') }} &libraries=drawing&callback=DrawMapWithPolygon"
-    async defer></script>
+        bermudaTriangle.setMap(map);
+        }
+        </script>
+
+        <script src="https://maps.googleapis.com/maps/api/js?key= {{ env('GOOGLE_KEY') }} &libraries=drawing&callback=DrawMapWithPolygon"
+        async defer></script>
+    @endif
 
 
 @stop

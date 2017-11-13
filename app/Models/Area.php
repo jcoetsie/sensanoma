@@ -16,6 +16,6 @@ class Area extends Model
 
     public function getCoordinatesAttribute($coordinates)
 	{
-	    return \GuzzleHttp\json_decode($coordinates);
+        return \GuzzleHttp\json_decode($coordinates);
 	}
 }
