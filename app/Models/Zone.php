@@ -10,13 +10,7 @@ class Zone extends Model
         'name', 'crop', 'coordinates', 'area_id'
     ];
 
-    /**
-     * The attributes that should be hidden for arrays.
-     *
-     * @var array
-     */
-
-    public function area()
+    public function areas()
     {
         return $this->belongsTo(Area::class);
     }

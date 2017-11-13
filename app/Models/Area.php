@@ -14,6 +14,11 @@ class Area extends Model
     	return $this->belongsTo(Account::class);
     }
 
+    public function zones()
+    {
+        return $this->hasMany(Zone::class);
+    }
+
     public function getCoordinatesAttribute($coordinates)
 	{
         return \GuzzleHttp\json_decode($coordinates);
