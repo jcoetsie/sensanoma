@@ -37,14 +37,8 @@ class AreaController extends Controller
      */
     public function store(AreaRequest $request)
     {
-        /*
-        $area = Auth::user()->account->areas()->create([
-            'name' => 'testArea', 
-            'address' => 'Molenbeek', 
-            'coordinates' => '{"a":"b"}'
-        ]);
-        */
-        Auth::user()->account->areas()->create($request);
+        Auth::user()->account->areas()->create($request->toArray());
+        return redirect(route('area.index'));
     }
 
     /**
@@ -55,7 +49,7 @@ class AreaController extends Controller
      */
     public function show(Area $area)
     {
-        $area = Area::findOrFail($area);
+        $area = Area::findOrFail($area->id);
         return view('area.show', compact('area'));
     }
 
@@ -79,7 +73,8 @@ class AreaController extends Controller
      */
     public function update(AreaRequest $request, Area $area)
     {
-        //
+        $area->update($request->toArray());
+        return redirect(route('area.show', $area));
     }
 
     /**
