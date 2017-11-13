@@ -19,16 +19,25 @@
 @section('content')
     {{ html()->form('PUT', route('area.update', $area))->open() }}
 
-    {{ html()->text('name')->placeholder('Area Name')->value($area->name) }}
-    {{ html()->text('address')->placeholder('Area address')->value($area->address) }}
+    <div class="box-body">
+        <div class="form-group">
+            {{ html()->label('Area name','name')}}
+            {{ html()->text('name')->class('form-control')->placeholder('Area Name')->value($area->name) }}
+        </div>
+        <div class="form-group">
+            {{ html()->label('Area address','address')}}
+            {{ html()->text('address')->class('form-control')->placeholder('Area address')->value($area->address) }}
+        </div>
+        <div class="form-group">
+            {{ html()->hidden('coordinates')->placeholder('Area coordinates')->value( json_encode($area->coordinates))->id('coordinates') }}
 
-    <div onclick="makePolygon()">
-        {{ html()->text('coordinates')->placeholder('Area coordinates')->value( json_encode($area->coordinates))->id('coordinates') }}
-    </div>
+            <button onclick="makePolygon(); event.preventDefault();" class="btn btn-primary">Chose area</button>
 
-    <div id="area"></div>
-
-    {{ html()->submit('Update') }}
+            <div id="area"></div>
+        </div>
+        <div class="form-group">
+    {{ html()->submit('Update')->class('btn btn-primary pull-right') }}
+        </div>
 
     {{ html()->form()->close() }}
 
