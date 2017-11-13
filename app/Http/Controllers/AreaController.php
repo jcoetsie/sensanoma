@@ -90,6 +90,6 @@ class AreaController extends Controller
      */
     public function destroy(Area $area)
     {
-        $area->destroy();
+        $area->destroy($area->id);
     }
 }
