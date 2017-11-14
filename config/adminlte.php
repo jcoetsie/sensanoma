@@ -85,7 +85,7 @@ return [
     |
     */
 
-    'dashboard_url' => 'home',
+    'dashboard_url' => '',
 
     'logout_url' => 'logout',
 
@@ -111,6 +111,11 @@ return [
 
         'DASHBOARD',
         [
+            'text' => 'Account',
+            'url'  => 'account',
+            'icon' => 'user',
+        ],
+        [
             'text' => 'Area',
             'url'  => 'area',
             'icon' => 'map',
@@ -121,9 +126,9 @@ return [
             'icon' => 'flag',
         ],
         [
-            'text' => 'Account',
-            'url'  => 'account',
-            'icon' => 'user',
+            'text' => 'SensorNode',
+            'url'  => 'sensor_node',
+            'icon' => 'microchip',
         ]
     ],
 
