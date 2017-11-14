@@ -6,14 +6,12 @@
 @stop
 
 @section('content')
-
-    {{ html()->form('POST', route('sensor_node.store'))->open() }}
+    {{ html()->form('PUT', route('sensor_node.update', $sensorNode))->open() }}
 
     <div class="box-body">
         <div class="form-group">
             {{ html()->label('Sensor node name','name')}}
-
-            {{ html()->text('name')->class('form-control')->placeholder('Sensor Node Name') }}
+            {{ html()->text('name')->class('form-control')->placeholder('Sensor Node Name')->value($sensorNode->name) }}
         </div>
 
         <div class="form-group">
@@ -23,15 +21,11 @@
         </div>
 
         <div class="form-group">
-
-            {{ html()->submit('Create Sensor Node')->class('btn btn-primary pull-right') }}
+            {{ html()->submit('Update')->class('btn btn-primary pull-right') }}
         </div>
 
         {{ html()->form()->close() }}
     </div>
 
 @stop
-
-
-
 
