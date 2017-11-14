@@ -16,7 +16,6 @@ class CreateSensorNodesTable extends Migration
         Schema::create('sensor_nodes', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->json('coordinates');
 
             $table->integer('zone_id')->unsigned()->nullable();
             $table->foreign('zone_id')->references('id')->on('zones')->onDelete('cascade');
