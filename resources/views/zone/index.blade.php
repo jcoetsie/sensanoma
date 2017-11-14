@@ -1,7 +1,5 @@
 @extends('adminlte::page')
 
-@section('title')
-
 @section('content_header')
     @include('layouts.flash')
     <h1>Zone settings</h1>
