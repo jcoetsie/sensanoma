@@ -11,18 +11,20 @@
 
     <div class="col-md-12">
         <div class="box">
-            @foreach($areas as $area)
             <div class="box-body no-padding">
-                <h3>{{ $area->name }}</h3>
                 <table class="table">
                     <tr>
                         <th>Name</th>
                         <th>Crop</th>
+                        <th>Area</th>
+                        <th></th>
                     </tr>
-                    @foreach($area->zones as $zone)
+                    @foreach($areas as $area)
+                        @foreach($area->zones as $zone)
                         <tr>
                             <td><a href="{{ route('zone.show', $zone) }}">{{ $zone->name }}</a></td>
                             <td>{{ $zone->crop }}</td>
+                            <td><a href="{{ route('area.show', $zone->area->id) }}">{{ $zone->area->name }}</a></td>
                             <td>
                                 <a href="{{ route('zone.edit', $zone) }}">
                                     <button type="button" class="btn btn-block btn-info">Edit</button>
@@ -38,10 +40,10 @@
 
                             </td>
                         </tr>
+                        @endforeach
                     @endforeach
                 </table>
             </div>
-            @endforeach
         </div>
     </div>
     <a href="{{ route('zone.create') }}">

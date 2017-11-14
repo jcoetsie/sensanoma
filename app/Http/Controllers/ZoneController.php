@@ -28,7 +28,12 @@ class ZoneController extends Controller
      */
     public function create()
     {
-        return view('zone.create');
+        $userAreas = Auth::user()->account->areas;
+        $areas = [];
+        foreach ($userAreas as $area)
+            $areas[$area->id] = $area->name;
+
+        return view('zone.create', compact('areas'));
     }
 
     /**
@@ -39,7 +44,19 @@ class ZoneController extends Controller
      */
     public function store(ZoneRequest $request)
     {
-        //
+        $area = Auth::user()->account->areas()->find($request->area_id);
+
+        if(!$area)
+            return redirect()->back()->withInput($request->toArray())->with('danger', 'An error occurred. Try again.');
+
+        Zone::create([
+            'name'          => $request->name,
+            'crop'          => $request->crop,
+            'coordinates'   => $request->coordinates,
+            'area_id'       => $request->area_id
+        ]);
+
+        return redirect(route('zone.index'))->with('success', 'The zone has been created');
     }
 
     /**

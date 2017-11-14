@@ -10,8 +10,9 @@ class Zone extends Model
         'name', 'crop', 'coordinates', 'area_id'
     ];
 
-    public function areas()
+    public function area()
     {
         return $this->belongsTo(Area::class);
     }
+
 }

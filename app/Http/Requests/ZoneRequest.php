@@ -26,7 +26,8 @@ class ZoneRequest extends FormRequest
         return [
             'name' => 'required|min:3',
             'crop' => 'required|min:3',
-            'coordinates' => 'required|json'
+            'coordinates' => 'required|json',
+            'area_id' => 'exists:areas,id'
         ];
     }
 }
