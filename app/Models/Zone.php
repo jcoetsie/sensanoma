@@ -15,4 +15,8 @@ class Zone extends Model
         return $this->belongsTo(Area::class);
     }
 
+    public function getCoordinatesAttribute($coordinates)
+    {
+        return \GuzzleHttp\json_decode($coordinates);
+    }
 }

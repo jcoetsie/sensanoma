@@ -16,8 +16,8 @@ class ZoneController extends Controller
      */
     public function index()
     {
-        // Auth::user()->account->areas->zones..
         $areas = Area::whereAccountId(Auth::id())->with(['account', 'zones'])->get();
+
         return view('zone.index', compact('areas'));
     }
 
@@ -29,6 +29,9 @@ class ZoneController extends Controller
     public function create()
     {
         $userAreas = Auth::user()->account->areas;
+        if(!$userAreas->toArray())
+            return redirect(route('zone.index'))->with('danger', 'You need to create an area first.');
+
         $areas = [];
         foreach ($userAreas as $area)
             $areas[$area->id] = $area->name;
@@ -49,12 +52,7 @@ class ZoneController extends Controller
         if(!$area)
             return redirect()->back()->withInput($request->toArray())->with('danger', 'An error occurred. Try again.');
 
-        Zone::create([
-            'name'          => $request->name,
-            'crop'          => $request->crop,
-            'coordinates'   => $request->coordinates,
-            'area_id'       => $request->area_id
-        ]);
+        $area->zones()->create($request->toArray());
 
         return redirect(route('zone.index'))->with('success', 'The zone has been created');
     }
@@ -90,7 +88,9 @@ class ZoneController extends Controller
      */
     public function update(ZoneRequest $request, Zone $zone)
     {
-        //
+        $zone->update($request->toArray());
+
+        return redirect(route('zone.show', $zone))->with('success', 'The Zone has been updated');
     }
 
     /**
