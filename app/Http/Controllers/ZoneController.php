@@ -17,8 +17,8 @@ class ZoneController extends Controller
     public function index()
     {
         // Auth::user()->account->areas->zones..
-        $zones = Area::whereAccountId(Auth::id())->with(['account', 'zones'])->get();
-        return view('zone.index', compact('zones'));
+        $areas = Area::whereAccountId(Auth::id())->with(['account', 'zones'])->get();
+        return view('zone.index', compact('areas'));
     }
 
     /**
@@ -86,6 +86,6 @@ class ZoneController extends Controller
     {
         $zone->destroy($zone->id);
 
-        return redirect(route('area.index'))->with('success', 'The Area has been deleted');
+        return redirect(route('zone.index'))->with('success', 'The Zone has been deleted');
     }
 }
