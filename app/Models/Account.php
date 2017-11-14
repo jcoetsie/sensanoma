@@ -17,4 +17,9 @@ class Account extends Model
     {
     	return $this->hasMany(Area::class);
     }
+
+    public function sensorNodes()
+    {
+        return $this->hasMany(SensorNode::class);
+    }
 }

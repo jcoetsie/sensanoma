@@ -15,6 +15,11 @@ class Zone extends Model
         return $this->belongsTo(Area::class);
     }
 
+    public function sensorNodes()
+    {
+        return $this->hasMany(SensorNode::class);
+    }
+
     public function getCoordinatesAttribute($coordinates)
     {
         return \GuzzleHttp\json_decode($coordinates);
