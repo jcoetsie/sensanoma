@@ -20,7 +20,7 @@ class CreateZonesTable extends Migration
             $table->json('coordinates');
 
             $table->integer('area_id')->unsigned()->nullable();
-            $table->foreign('area_id')->references('id')->on('areas');
+            $table->foreign('area_id')->references('id')->on('areas')->onDelete('cascade');
 
             $table->timestamps();
         });

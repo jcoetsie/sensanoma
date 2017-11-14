@@ -20,7 +20,7 @@ class CreateAreasTable extends Migration
             $table->json('coordinates');
 
             $table->integer('account_id')->unsigned()->nullable();
-            $table->foreign('account_id')->references('id')->on('accounts');
+            $table->foreign('account_id')->references('id')->on('accounts')->onDelete('cascade');
             
             $table->timestamps();
         });

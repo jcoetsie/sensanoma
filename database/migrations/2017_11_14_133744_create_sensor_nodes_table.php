@@ -19,10 +19,10 @@ class CreateSensorNodesTable extends Migration
             $table->json('coordinates');
 
             $table->integer('zone_id')->unsigned()->nullable();
-            $table->foreign('zone_id')->references('id')->on('zones');
+            $table->foreign('zone_id')->references('id')->on('zones')->onDelete('cascade');
 
             $table->integer('account_id')->unsigned()->nullable();
-            $table->foreign('account_id')->references('id')->on('accounts');
+            $table->foreign('account_id')->references('id')->on('accounts')->onDelete('cascade');
 
             $table->timestamps();
         });
