@@ -26,6 +26,13 @@
             {{ html()->label('Zone crop','crop')}}
             {{ html()->text('crop')->class('form-control')->placeholder('Zone Crop')->value($zone->crop) }}
         </div>
+
+        <div class="form-group">
+            {{ html()->label('Area name','area_id') }}
+
+            {{ html()->select('area_id', $areas)->class('form-control') }}
+        </div>
+
         <div class="form-group">
             {{ html()->hidden('coordinates')->placeholder('Zone coordinates')->value( json_encode($zone->coordinates))->id('coordinates') }}
 

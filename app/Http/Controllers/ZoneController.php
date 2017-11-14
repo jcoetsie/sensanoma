@@ -82,7 +82,13 @@ class ZoneController extends Controller
      */
     public function edit(Zone $zone)
     {
-        return view('zone.edit', compact('zone'));
+        $userAreas = Auth::user()->account->areas;
+
+        $areas = [];
+        foreach ($userAreas as $area)
+            $areas[$area->id] = $area->name;
+
+        return view('zone.edit', compact('zone', 'areas'));
     }
 
     /**
@@ -94,6 +100,10 @@ class ZoneController extends Controller
      */
     public function update(ZoneRequest $request, Zone $zone)
     {
+        $area = Auth::user()->account->areas()->find($request->area_id);
+        if(!$area)
+            return redirect()->back()->withInput($request->toArray())->with('danger', 'An error occurred. Try again.');
+
         $zone->update($request->toArray());
 
         return redirect(route('zone.show', $zone))->with('success', 'The Zone has been updated');
