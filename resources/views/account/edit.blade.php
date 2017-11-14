@@ -1,10 +1,7 @@
 @extends('adminlte::page')
 
-@section('title')
-   Sensanoma edit account
-@stop
-
 @section('content_header')
+    @include('layouts.flash')
     <h1>Edit account</h1>
 @stop
 
@@ -17,10 +14,9 @@
             {{ html()->text('name')->class('form-control')->value( $account->name ) }}
         </div>
     </div>
-    <div class="box-footer">
-        {{ html()->submit('submit changes')->class('btn btn-primary pull-right') }}
-    </div>
+
+    {{ html()->submit('Update')->class('btn btn-primary pull-right') }}
+
     {{ html()->form()->close() }}
 
-    @include('layouts.flash')
 @stop

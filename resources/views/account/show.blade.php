@@ -1,10 +1,7 @@
 @extends('adminlte::page')
 
-@section('title')
-    Sensanoma
-@stop
-
 @section('content_header')
+    @include('layouts.flash')
     <h1>Account</h1>
 @stop
 
@@ -37,5 +34,5 @@
             </div>
         </div>
     </div>
-    @include('layouts.flash')
+
 @stop

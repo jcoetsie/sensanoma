@@ -3,7 +3,8 @@
 @section('title')
 
 @section('content_header')
-    <h1>Area settings</h1>
+    @include('layouts.flash')
+    <h1>Zone settings</h1>
 @stop
 
 
@@ -21,25 +22,25 @@
                     </tr>
                     @foreach($areas as $area)
                         @foreach($area->zones as $zone)
-                        <tr>
-                            <td><a href="{{ route('zone.show', $zone) }}">{{ $zone->name }}</a></td>
-                            <td>{{ $zone->crop }}</td>
-                            <td><a href="{{ route('area.show', $zone->area->id) }}">{{ $zone->area->name }}</a></td>
-                            <td>
-                                <a href="{{ route('zone.edit', $zone) }}">
-                                    <button type="button" class="btn btn-block btn-info">Edit</button>
-                                </a>
-                            </td>
-                            <td>
+                            <tr>
+                                <td><a href="{{ route('zone.show', $zone) }}">{{ $zone->name }}</a></td>
+                                <td>{{ $zone->crop }}</td>
+                                <td><a href="{{ route('area.show', $zone->area->id) }}">{{ $zone->area->name }}</a></td>
+                                <td>
+                                    <a href="{{ route('zone.edit', $zone) }}">
+                                        <button type="button" class="btn btn-block btn-info">Edit</button>
+                                    </a>
+                                </td>
+                                <td>
 
-                                {{ html()->form('DELETE', route('zone.destroy', $zone->id))->open() }}
+                                    {{ html()->form('DELETE', route('zone.destroy', $zone->id))->open() }}
 
-                                {{ html()->submit('Delete')->class('btn btn-danger') }}
+                                    {{ html()->submit('Delete')->class('btn btn-danger') }}
 
-                                {{ html()->form()->close() }}
+                                    {{ html()->form()->close() }}
 
-                            </td>
-                        </tr>
+                                </td>
+                            </tr>
                         @endforeach
                     @endforeach
                 </table>
@@ -50,7 +51,6 @@
         <button type="button" class="btn btn-block btn-primary">Create a zone</button>
     </a>
     <hr>
-    @include('layouts.flash')
 
 @stop
 

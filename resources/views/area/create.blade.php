@@ -1,23 +1,23 @@
 @extends('adminlte::page')
 
-@section('title')
-
-@section('content_header')
-    <h1>Area settings</h1>
-@stop
-
 @section('css')
     <style>
-        #area{
+        #area {
             width: 100%;
-            height:300px ;
+            height: 300px;
         }
     </style>
 @stop
 
+@section('content_header')
+    @include('layouts.flash')
+    <h1>Area settings</h1>
+@stop
+
 @section('content')
+
     {{ html()->form('POST', route('area.store'))->open() }}
-    
+
     <div class="box-body">
         <div class="form-group">
             {{ html()->label('Area name','name')}}
@@ -31,20 +31,20 @@
         </div>
         <div class="form-group">
 
-        {{ html()->hidden('coordinates')->placeholder('Area coordinates')->id('coordinates') }}
+            {{ html()->hidden('coordinates')->placeholder('Area coordinates')->id('coordinates') }}
 
-        <button onclick="makePolygon(); event.preventDefault();" class="btn btn-primary">Chose area</button>
+            <button onclick="makePolygon(); event.preventDefault();" class="btn btn-primary">Chose area</button>
 
-    <div id="area" style="display: none"></div>
+            <div id="area" style="display: none"></div>
         </div>
         <div class="form-group">
 
-    {{ html()->submit('Create area')->class('btn btn-primary pull-right') }}
+            {{ html()->submit('Create area')->class('btn btn-primary pull-right') }}
         </div>
-        
+    </div>
+
     {{ html()->form()->close() }}
 
-    @include('layouts.flash')
 @stop
 
 @section('js')
@@ -69,12 +69,11 @@
 
             drawingManager.setMap(map);
 
-            google.maps.event.addListener(drawingManager, 'overlaycomplete', function(polygon) {
+            google.maps.event.addListener(drawingManager, 'overlaycomplete', function (polygon) {
                 var coordinatesArray = polygon.overlay.getPath().getArray();
 
                 var myCoords = "[";
-                for(var i=0; i < coordinatesArray.length; i++)
-                {
+                for (var i = 0; i < coordinatesArray.length; i++) {
                     myCoords += '{"lat":' + coordinatesArray[i].lat() + ', "lng":' + coordinatesArray[i].lng() + '}';
                     if (i < coordinatesArray.length - 1)
                         myCoords += ", ";
@@ -88,7 +87,8 @@
 
         }
     </script>
-    <script src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_KEY') }}&libraries=drawing" async defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_KEY') }}&libraries=drawing" async
+            defer></script>
 @stop
 
 

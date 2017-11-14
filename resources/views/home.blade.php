@@ -3,6 +3,7 @@
 @section('title')
 
 @section('content_header')
+    @include('layouts.flash')
     <h1>Dashboard</h1>
 @stop
 

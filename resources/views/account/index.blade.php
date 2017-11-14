@@ -1,10 +1,7 @@
 @extends('adminlte::page')
 
-@section('title')
-  Sensanoma
-@stop
-
 @section('content_header')
+    @include('layouts.flash')
     <h1>Account settings</h1>
 @stop
 
@@ -16,7 +13,7 @@
                 <table class="table">
                     <tr>
                         <th style="width: 80%;">Name</th>
-                        <th>Options</th>
+                        <th></th>
                     </tr>
                     <tr>
                         <td>
@@ -26,29 +23,28 @@
 
                             </a>
                         </td>
-                            <td>
-                                <a href="{{ route('account.edit', $account) }}">
-                                    <button type="button" class="btn btn-block btn-info">Update</button>
-                                </a>
-                            </td>
-                            <td>
+                        <td>
+                            <a href="{{ route('account.edit', $account) }}">
+                                <button type="button" class="btn btn-block btn-info">Edit</button>
+                            </a>
+                        </td>
+                        <td>
 
-                                {{ html()->form('DELETE', route('account.destroy', $account))->open() }}
+                            {{ html()->form('DELETE', route('account.destroy', $account))->open() }}
 
-                                {{ html()->submit('Delete')->class('btn btn-danger') }}
+                            {{ html()->submit('Delete')->class('btn btn-danger') }}
 
-                                {{ html()->form()->close() }}
+                            {{ html()->form()->close() }}
 
-                            </td>
+                        </td>
                     </tr>
                 </table>
             </div>
         </div>
     </div>
-        <a href="{{ route('account.create', $account) }}">
-            <button type="button" class="btn btn-block btn-primary">Create an account</button>
-        </a>
-        <hr>
-    @include('layouts.flash')
+    <a href="{{ route('account.create', $account) }}">
+        <button type="button" class="btn btn-block btn-primary" disabled="disabled">Create an account</button>
+    </a>
+    <hr>
 
 @stop
