@@ -13,7 +13,7 @@ class SensorNodeRequest extends FormRequest
      */
     public function authorize()
     {
-        return false;
+        return true;
     }
 
     /**
@@ -24,7 +24,8 @@ class SensorNodeRequest extends FormRequest
     public function rules()
     {
         return [
-            //
+            'name' => 'required|min:3',
+            'zone_id' => 'exists:zones,id'
         ];
     }
 }
