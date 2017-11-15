@@ -16,7 +16,8 @@ class SensorNodeTypeController extends Controller
      */
     public function index()
     {
-        $sensorNodeType = Auth::user()->account->sensorNodeTypes()->get()->toArray();
+        $sensorNodeType = Auth::user()->account->sensorNodeTypes()->get();
+
         return view('sensor_node_type.index', compact('sensorNodeType'));
     }
 
@@ -39,13 +40,14 @@ class SensorNodeTypeController extends Controller
      */
     public function store(SensorNodeTypeRequest $request)
     {
-        $sensorNode = Auth::user()->account->sensorNodes()->find($request->id);
+        $sensorNode = Auth::user()->account->sensorNodes()->find($request->sensor_node_id);
+
         if(!$sensorNode)
             return redirect()->back()->withInput($request->toArray())->with('danger', 'An error occurred. Try again.');
 
-        Auth::user()->account->sensorNodes->sensorNodeType()->create($request->toArray());
+        Auth::user()->account->sensorNodeTypes()->create($request->toArray());
 
-        return redirect(route(sensor_node_type.index))->with('success', 'The Sensor Node Type has been created');
+        return redirect(route('sensor_node_type.index'))->with('success', 'The Sensor Node Type has been created');
     }
 
     /**
