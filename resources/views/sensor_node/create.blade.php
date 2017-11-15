@@ -6,10 +6,9 @@
 @stop
 
 @section('content')
-
     {{ html()->form('POST', route('sensor_node.store'))->open() }}
 
-    <div class="box-body">
+    <div class="col-md-12">
         <div class="form-group">
             {{ html()->label('Sensor node name','name')}}
 
@@ -26,9 +25,9 @@
 
             {{ html()->submit('Create Sensor Node')->class('btn btn-primary pull-right') }}
         </div>
-
-        {{ html()->form()->close() }}
     </div>
+
+    {{ html()->form()->close() }}
 
 @stop
 
