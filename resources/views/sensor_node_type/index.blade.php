@@ -2,7 +2,7 @@
 
 @section('content_header')
     @include('layouts.flash')
-    <h1>Sensor Node settings</h1>
+    <h1>Sensor Node Type settings</h1>
 @stop
 
 @section('content')
@@ -13,18 +13,15 @@
                 <table class="table">
                     <tr>
                         <th>Name</th>
-                        <th>Owner</th>
-                        <th>Zone</th>
+                        <th>Sensor Node</th>
                     </tr>
                     @foreach($sensorNodeType as $node)
                         <tr>
                             <td>
                                 <a href="{{ route('sensor_node_type.show', $node) }}">{{ $node->name }}</a>
-                            <td>
-                                <a href="{{ route('account.show', $node->account->id) }}">{{ $node->account->name }}</a>
                             </td>
                             <td>
-                                <a href="{{ route('zone.show', $node->zone->id) }}">{{ $node->zone->name }}</a>
+                                <a href="{{ route('sensor_node.show', $node->sensorNodes->id) }}">{{ $node->sensorNodes->name }}</a>
                             </td>
                             <td>
                                 <a href="{{ route('sensor_node_type.edit', $node) }}">
