@@ -1,12 +1,7 @@
 @extends('adminlte::page')
 
 @section('css')
-    <style>
-        #area {
-            width: 100%;
-            height: 300px;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ URL::asset('css/custom.css') }}" />
 @stop
 
 @section('content_header')
@@ -18,8 +13,7 @@
 
 
     {{ html()->form('POST', route('zone.store'))->open() }}
-
-    <div class="box-body">
+    <div class="col-md-12">
         <div class="form-group">
             {{ html()->label('Zone name','name')}}
 
@@ -49,52 +43,13 @@
 
             {{ html()->submit('Create zone')->class('btn btn-primary pull-right') }}
         </div>
-
-        {{ html()->form()->close() }}
     </div>
+    {{ html()->form()->close() }}
 
 @stop
 
 @section('js')
-    <script>
-        function makePolygon() {
-
-            document.querySelector('#area').style.display = "block";
-
-            var map = new google.maps.Map(document.getElementById('area'), {
-                center: {lat: 50.85451938, lng: 4.35601451},
-                zoom: 8
-            });
-
-            var drawingManager = new google.maps.drawing.DrawingManager({
-                drawingMode: google.maps.drawing.OverlayType.POLYGON,
-                drawingControl: true,
-                drawingControlOptions: {
-                    position: google.maps.ControlPosition.TOP_CENTER,
-                    drawingModes: ['polygon']
-                }
-            });
-
-            drawingManager.setMap(map);
-
-            google.maps.event.addListener(drawingManager, 'overlaycomplete', function (polygon) {
-                var coordinatesArray = polygon.overlay.getPath().getArray();
-
-                var myCoords = "[";
-                for (var i = 0; i < coordinatesArray.length; i++) {
-                    myCoords += '{"lat":' + coordinatesArray[i].lat() + ', "lng":' + coordinatesArray[i].lng() + '}';
-                    if (i < coordinatesArray.length - 1)
-                        myCoords += ", ";
-                }
-                myCoords += "]";
-
-                document.querySelector('#area').style.display = "none";
-
-                document.querySelector('#coordinates').value = myCoords;
-            });
-
-        }
-    </script>
+    <script type="text/javascript" src="{{ URL::asset('js/polygon/make.js') }}"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_KEY') }}&libraries=drawing" async
             defer></script>
 @stop

@@ -1,12 +1,7 @@
 @extends('adminlte::page')
 
 @section('css')
-    <style>
-        #area{
-            width: 100%;
-            height:300px ;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ URL::asset('css/custom.css') }}" />
 @stop
 
 @section('content_header')
@@ -17,11 +12,13 @@
 
 @section('content')
 
-    <table class="table">
+    <table class="table borderless">
         <tr>
-            <th style="width: 20%;">Name</th>
-            <th style="width: 40%">Crop</th>
-            <th style="width: 20%">Area</th>
+            <th>Name</th>
+            <th>Crop</th>
+            <th>Area</th>
+            <th class="pull-right"></th>
+            <th class="pull-right"></th>
         </tr>
         <tr>
             <td>
@@ -33,66 +30,34 @@
             <td>
                 {{ $zone->area->name }}
             </td>
-            <td>
-                <a href="{{ route('zone.edit', $zone) }}">
-                    <button type="button" class="btn btn-block btn-info">Edit</button>
-                </a>
-            </td>
-            <td>
+            <td class="pull-right">
 
                 {{ html()->form('DELETE', route('zone.destroy', $zone->id))->open() }}
 
-                {{ html()->submit('Delete')->class('btn btn-danger') }}
+                {{ html()->submit('Delete')->class('btn custom btn-danger') }}
 
                 {{ html()->form()->close() }}
 
             </td>
+
+            <td class="pull-right">
+
+                {{ html()->form('GET', route('zone.edit', $zone->id))->open() }}
+
+                {{ html()->submit('Edit')->class('btn custom btn-info') }}
+
+                {{ html()->form()->close() }}
+            </td>
+
         </tr>
     </table>
     <div id="area"></div>
 
-@stop
-
-
-@section('js')
-
-    @if(!empty($zone->coordinates[0]->lat))
-        <script>
-
-            function DrawMapWithPolygon(myCoords) {
-                var map = new google.maps.Map(document.getElementById('area'), {
-                    zoom: 10,
-                    center: {lat: {{ $zone->coordinates[0]->lat }}, lng: {{ $zone->coordinates[0]->lng }} },
-                    mapTypeId: 'terrain'
-                });
-
-                var myCoords = [
-                    @foreach($zone->coordinates as $coordinate)
-                        new google.maps.LatLng( {{ $coordinate->lat }}, {{ $coordinate->lng }} ),
-                    @endforeach
-                ];
-
-                console.log(myCoords);
-
-                // Construct the polygon.
-                var bermudaTriangle = new google.maps.Polygon({
-                    paths: myCoords,
-                    strokeColor: '#FF0000',
-                    strokeOpacity: 0.8,
-                    strokeWeight: 2,
-                    fillColor: '#FF0000',
-                    fillOpacity: 0.35
-                });
-
-                bermudaTriangle.setMap(map);
-            }
-        </script>
-
-        <script src="https://maps.googleapis.com/maps/api/js?key= {{ env('GOOGLE_KEY') }} &libraries=drawing&callback=DrawMapWithPolygon"
-                async defer></script>
-    @endif
-
+    @include('layouts.showPolygon')
 
 @stop
+
+
+
 
 

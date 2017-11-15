@@ -6,9 +6,10 @@
 @stop
 
 @section('content')
+
     {{ html()->form('PUT', route('sensor_node.update', $sensorNode))->open() }}
 
-    <div class="box-body">
+    <div class="col-md-12">
         <div class="form-group">
             {{ html()->label('Sensor node name','name')}}
             {{ html()->text('name')->class('form-control')->placeholder('Sensor Node Name')->value($sensorNode->name) }}
@@ -23,9 +24,9 @@
         <div class="form-group">
             {{ html()->submit('Update')->class('btn btn-primary pull-right') }}
         </div>
-
-        {{ html()->form()->close() }}
     </div>
+
+    {{ html()->form()->close() }}
 
 @stop
 

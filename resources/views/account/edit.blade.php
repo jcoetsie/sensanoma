@@ -7,15 +7,14 @@
 
 @section('content')
     {{ html()->form('PUT', route('account.update', $account))->open() }}
-    <div class="box-body">
+    <div class="col-md-12">
         <div class="form-group">
             {{ html()->label('Account name','name')}}
 
             {{ html()->text('name')->class('form-control')->value( $account->name ) }}
         </div>
+        {{ html()->submit('Update')->class('btn btn-primary pull-right') }}
     </div>
-
-    {{ html()->submit('Update')->class('btn btn-primary pull-right') }}
 
     {{ html()->form()->close() }}
 
