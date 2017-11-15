@@ -44,7 +44,7 @@
         </div>
     </div>
     <a href="{{ route('sensor_node_type.create') }}">
-        <button type="button" class="btn btn-block btn-primary">Create a sensor node</button>
+        <button type="button" class="btn btn-block btn-primary">Create a sensor node type</button>
     </a>
     <hr>
 

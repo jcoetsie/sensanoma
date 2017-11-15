@@ -1,9 +1,5 @@
 @extends('adminlte::page')
 
-@section('css')
-    <link rel="stylesheet" href="{{ URL::asset('css/custom.css') }}" />
-@stop
-
 @section('content_header')
     @include('layouts.flash')
     <h1>Sensor Node Type settings</h1>
