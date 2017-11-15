@@ -16,7 +16,6 @@ class CreateSensorNodeTypesTable extends Migration
         Schema::create('sensor_node_types', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name');
-            $table->string('type');
 
             $table->integer('sensor_node_id')->unsigned()->nullable();
             $table->foreign('sensor_node_id')->references('id')->on('sensor_nodes')->onDelete('cascade');

@@ -25,7 +25,6 @@ class SensorNodeTypeRequest extends FormRequest
     {
         return [
             'name' =>   'required|min:3',
-            'type' =>   'required|min:2',
             'sensor_node_id', 'exists:sensor_nodes,id'
         ];
     }

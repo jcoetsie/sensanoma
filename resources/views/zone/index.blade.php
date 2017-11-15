@@ -16,9 +16,9 @@
             <div class="box-body no-padding">
                 <table class="table borderless">
                     <tr>
-                        <th style="width: 30%;">Name</th>
-                        <th style="width: 25%;">Crop</th>
-                        <th style="width: 25%;">Area</th>
+                        <th>Name</th>
+                        <th>Crop</th>
+                        <th>Area</th>
                     </tr>
                     @foreach($areas as $area)
                         @foreach($area->zones as $zone)
