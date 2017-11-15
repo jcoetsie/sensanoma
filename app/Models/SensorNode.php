@@ -17,4 +17,9 @@ class SensorNode extends Model
     {
         return $this->belongsTo(Account::class);
     }
+
+    public function sensorNodeTypes()
+    {
+        return $this->hasMany(SensorNodeType::class);
+    }
 }

@@ -27,4 +27,9 @@ class Account extends Model
     {
         return $this->hasManyThrough(Zone::class, Area::class);
     }
+
+    public function sensorNodeTypes()
+    {
+        return $this->hasManyThrough(SensorNodeType::class, SensorNode::class);
+    }
 }

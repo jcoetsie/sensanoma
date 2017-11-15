@@ -38,9 +38,7 @@ class SensorNodeController extends Controller
         if(!$userZones->toArray())
             return redirect(route('sensor_node.index'))->with('danger', 'You need to create a zone first.');
 
-        $zones = [];
-        foreach ($userZones as $uzone)
-            $zones[$uzone->id] = $uzone->name;
+        $zones = $userZones->pluck('name', 'id');
 
         return view('sensor_node.create', compact('zones'));
     }
@@ -82,9 +80,7 @@ class SensorNodeController extends Controller
     {
         $userZones = Auth::user()->account->zones()->get();
 
-        $zones = [];
-        foreach ($userZones as $uzone)
-            $zones[$uzone->id] = $uzone->name;
+        $zones = $userZones->pluck('name', 'id');
 
         return view('sensor_node.edit', compact('sensorNode', 'zones'));
     }
