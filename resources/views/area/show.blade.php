@@ -6,21 +6,16 @@
 @stop
 
 @section('css')
-    <style>
-        #area {
-            width: 100%;
-            height: 300px;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ URL::asset('css/custom.css') }}" />
 @stop
 
 @section('content')
 
-    <table class="table">
+    <table class="table borderless">
         <tr>
-            <th style="width: 20%;">Name</th>
-            <th style="width: 40%">Address</th>
-            <th style="width: 20%">Account owner</th>
+            <th>Name</th>
+            <th>Address</th>
+            <th>Account owner</th>
         </tr>
         <tr>
             <td>
@@ -32,19 +27,23 @@
             <td>
                 {{ $area->account->name }}
             </td>
-            <td>
-                <a href="{{ route('area.edit', $area) }}">
-                    <button type="button" class="btn btn-block btn-info">Edit</button>
-                </a>
-            </td>
-            <td>
+            <td class="pull-right">
 
                 {{ html()->form('DELETE', route('area.destroy', $area->id))->open() }}
 
-                {{ html()->submit('Delete')->class('btn btn-danger') }}
+                {{ html()->submit('Delete')->class('btn custom btn-danger') }}
 
                 {{ html()->form()->close() }}
 
+            </td>
+
+            <td class="pull-right">
+
+                {{ html()->form('GET', route('area.edit', $area->id))->open() }}
+
+                {{ html()->submit('Edit')->class('btn custom btn-info') }}
+
+                {{ html()->form()->close() }}
             </td>
         </tr>
     </table>

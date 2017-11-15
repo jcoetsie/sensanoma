@@ -1,12 +1,7 @@
 @extends('adminlte::page')
 
 @section('css')
-    <style>
-        #area {
-            width: 100%;
-            height: 300px;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ URL::asset('css/custom.css') }}" />
 @stop
 
 @section('content_header')
@@ -18,7 +13,7 @@
 
     {{ html()->form('POST', route('area.store'))->open() }}
 
-    <div class="box-body">
+    <div class="col-md-12">
         <div class="form-group">
             {{ html()->label('Area name','name')}}
 
@@ -42,7 +37,6 @@
             {{ html()->submit('Create area')->class('btn btn-primary pull-right') }}
         </div>
     </div>
-
     {{ html()->form()->close() }}
 
 @stop

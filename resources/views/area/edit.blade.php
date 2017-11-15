@@ -1,12 +1,7 @@
 @extends('adminlte::page')
 
 @section('css')
-    <style>
-        #area {
-            width: 100%;
-            height: 300px;
-        }
-    </style>
+    <link rel="stylesheet" href="{{ URL::asset('css/custom.css') }}" />
 @stop
 
 @section('content_header')
@@ -16,8 +11,7 @@
 
 @section('content')
     {{ html()->form('PUT', route('area.update', $area))->open() }}
-
-    <div class="box-body">
+    <div class="col-md-12">
         <div class="form-group">
             {{ html()->label('Area name','name')}}
             {{ html()->text('name')->class('form-control')->placeholder('Area Name')->value($area->name) }}
@@ -37,8 +31,8 @@
             {{ html()->submit('Update')->class('btn btn-primary pull-right') }}
         </div>
     </div>
-
     {{ html()->form()->close() }}
+
 
 @stop
 
