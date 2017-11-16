@@ -2,7 +2,11 @@
 
 @section('content_header')
     @include('layouts.flash')
-    <h1 class="text-center">Area settings</h1>
+        <div class="col-md-12">
+            <h2>All areas
+                <a href="{{ route('area.create') }}"><button type="button" class="btn btn-flat btn-primary pull-right">Create an area</button></a>
+            </h2>
+        </div>
 @stop
 
 @section('css')
@@ -12,7 +16,7 @@
 @section('content')
 
     @foreach($areas as $area)
-    <div class="col-md-6 col-sm-6 col-xs-6">
+    <div class="col-md-6 col-sm-12 col-xs-12">
         <div class="info-box">
             <span class="info-box-icon bg-aqua"><i class="fa fa-map"></i></span>
 
@@ -20,7 +24,7 @@
                 <span>
                     <h4><a href="{{ route('area.show', $area) }}">{{ $area->name }}</a></h4>
                 </span>
-                <span class="progress-description"> {{ $area->address }}</span>
+                <span class="progress-description"> Address: {{ $area->address }}</span>
                 <span class="progress-description"> Created by:
                    <a href="{{ route('account.show', $area->account->id) }}">{{ $area->account->name }}</a>
                 </span>
@@ -52,10 +56,6 @@
         <br>
     </div>
     @endforeach
-    <a href="{{ route('area.create') }}">
-        <button type="button" class="btn btn-block btn-primary">Create an area</button>
-    </a>
-
 @stop
 
 

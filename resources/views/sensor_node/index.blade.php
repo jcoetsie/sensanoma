@@ -2,7 +2,11 @@
 
 @section('content_header')
     @include('layouts.flash')
-    <h1>Sensor Node settings</h1>
+    <div class="col-md-12">
+        <h2>All SensorNodes
+            <a href="{{ route('sensor_node.create') }}"><button type="button" class="btn btn-flat btn-primary pull-right">Create a SensorNode</button></a>
+        </h2>
+    </div>
 @stop
 
 @section('css')
@@ -10,54 +14,49 @@
 @stop
 
 @section('content')
+    @foreach($sensorNodes as $node)
+    <div class="col-md-6 col-sm-12 col-xs-12">
+        <div class="info-box">
+            <span class="info-box-icon bg-aqua"><i class="fa fa-fw fa-microchip "></i></span>
 
-    <div class="col-md-12">
-        <div class="box">
-            <div class="box-body no-padding">
-                <table class="table borderless">
-                    <tr>
-                        <th>Name</th>
-                        <th>Owner</th>
-                        <th>Zone</th>
-                    </tr>
-                    @foreach($sensorNodes as $node)
-                        <tr>
-                            <td>
-                                <a href="{{ route('sensor_node.show', $node) }}">{{ $node->name }}</a>
-                            <td>
-                                <a href="{{ route('account.show', $node->account->id) }}">{{ $node->account->name }}</a>
-                            </td>
-                            <td>
-                                <a href="{{ route('zone.show', $node->zone->id) }}">{{ $node->zone->name }}</a>
-                            </td>
-                            <td class="pull-right">
+            <div class="info-box-content">
+            <span>
+                <h4><a href="{{ route('sensor_node.show', $node) }}">{{ $node->name }}</a></h4>
+            </span>
+            <span class="progress-description"> Zone:
+                <a href="{{ route('zone.show', $node->zone->id) }}">{{ $node->zone->name }}</a>
+            </span>
+            <span class="progress-description"> Created by:
+                <a href="{{ route('account.show', $node->account->id) }}">{{ $node->account->name }}</a>
+            </span>
+            </div>
+            <!-- /.info-box-content -->
+        </div>
+        <div class="row">
 
-                                {{ html()->form('DELETE', route('sensor_node.destroy', $node->id))->open() }}
+            <div class="col-md-6 col-sm-6 col-xs-6">
 
-                                {{ html()->submit('Delete')->class('btn custom btn-danger') }}
+                {{ html()->form('GET', route('sensor_node.edit', $node->id))->open() }}
 
-                                {{ html()->form()->close() }}
+                {{ html()->submit('Edit')->class('btn btn-block btn-info') }}
 
-                            </td>
+                {{ html()->form()->close() }}
 
-                            <td class="pull-right">
+            </div>
 
-                                {{ html()->form('GET', route('sensor_node.edit', $node->id))->open() }}
+            <div class="col-md-6 col-sm-6 col-xs-6">
 
-                                {{ html()->submit('Edit')->class('btn custom btn-info') }}
+                {{ html()->form('DELETE', route('sensor_node.destroy', $node->id))->open() }}
 
-                                {{ html()->form()->close() }}
-                            </td>
-                        </tr>
-                    @endforeach
-                </table>
+                {{ html()->submit('Delete')->class('btn btn-block btn-danger') }}
+
+                {{ html()->form()->close() }}
+
             </div>
         </div>
+        <br>
     </div>
-    <a href="{{ route('sensor_node.create') }}">
-        <button type="button" class="btn btn-block btn-primary">Create a sensor node</button>
-    </a>
-    <hr>
+    @endforeach
 
 @stop
 
