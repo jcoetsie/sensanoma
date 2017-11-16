@@ -2,7 +2,9 @@
 
 @section('content_header')
     @include('layouts.flash')
-    <h1>Account settings</h1>
+    <div class="col-md-6 col-sm-10 col-xs-12 col-md-offset-3 col-sm-offset-1">
+        <h2>Account</h2>
+    </div>
 @stop
 
 @section('css')
@@ -11,48 +13,44 @@
 
 @section('content')
 
-    <div class="col-md-12">
-        <div class="box">
-            <div class="box-body no-padding">
-                <table class="table borderless">
-                    <tr>
-                        <th style="width: 80%;">Name</th>
-                        <th></th>
-                    </tr>
-                    <tr>
-                        <td>
-                            <a href="{{ route('account.show', $account) }}">
+    <div class="col-md-6 col-sm-10 col-xs-12 col-md-offset-3 col-sm-offset-1">
+        <div class="info-box">
+            <span class="info-box-icon bg-aqua"><i class="fa fa-user"></i></span>
 
-                                {{ $account->name }}
+            <div class="info-box-content">
+                <span>
+                    <h4><a href="{{ route('account.show', $account) }}">{{ $account->name }}</a></h4>
+                </span>
+                <span>
+                    <h4>Created in: {{  Carbon\Carbon::parse($account->created_at)->toFormattedDateString()  }}</h4>
+                </span>
+            </div>
+            <!-- /.info-box-content -->
+        </div>
+        <div class="row">
 
-                            </a>
-                        </td>
-                        <td class="pull-right">
+            <div class="col-md-6 col-sm-6 col-xs-6">
 
-                            {{ html()->form('DELETE', route('account.destroy', $account->id))->open() }}
+                {{ html()->form('GET', route('account.edit', $account->id))->open() }}
 
-                            {{ html()->submit('Delete')->class('btn custom btn-danger') }}
+                {{ html()->submit('Edit')->class('btn btn-block btn-info') }}
 
-                            {{ html()->form()->close() }}
+                {{ html()->form()->close() }}
 
-                        </td>
+            </div>
 
-                        <td class="pull-right">
+            <div class="col-md-6 col-sm-6 col-xs-6">
 
-                            {{ html()->form('GET', route('account.edit', $account->id))->open() }}
+                {{ html()->form('DELETE', route('account.destroy', $account->id))->open() }}
 
-                            {{ html()->submit('Edit')->class('btn custom btn-info') }}
+                {{ html()->submit('Delete')->class('btn btn-block btn-danger') }}
 
-                            {{ html()->form()->close() }}
-                        </td>
-                    </tr>
-                </table>
+                {{ html()->form()->close() }}
+
             </div>
         </div>
+        <br>
     </div>
-    <a href="{{ route('account.create', $account) }}">
-        <button type="button" class="btn btn-block btn-primary" disabled="disabled">Create an account</button>
-    </a>
-    <hr>
+
 
 @stop

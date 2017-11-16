@@ -2,7 +2,11 @@
 
 @section('content_header')
     @include('layouts.flash')
-    <h1>Zone settings</h1>
+    <div class="col-md-12">
+        <h2>All zones
+            <a href="{{ route('zone.create') }}"><button type="button" class="btn btn-flat btn-primary pull-right">Create a zone</button></a>
+        </h2>
+    </div>
 @stop
 
 @section('css')
@@ -10,52 +14,51 @@
 @stop
 
 @section('content')
+    @foreach($areas as $area)
+        @foreach($area->zones as $zone)
+            <div class="col-md-6 col-sm-12 col-xs-12">
+                <div class="info-box">
+                    <span class="info-box-icon bg-aqua"><i class="fa fa-fw fa-flag "></i></span>
 
-    <div class="col-md-12">
-        <div class="box">
-            <div class="box-body no-padding">
-                <table class="table borderless">
-                    <tr>
-                        <th>Name</th>
-                        <th>Crop</th>
-                        <th>Area</th>
-                    </tr>
-                    @foreach($areas as $area)
-                        @foreach($area->zones as $zone)
-                            <tr>
-                                <td><a href="{{ route('zone.show', $zone) }}">{{ $zone->name }}</a></td>
-                                <td>{{ $zone->crop }}</td>
-                                <td><a href="{{ route('area.show', $zone->area->id) }}">{{ $zone->area->name }}</a></td>
-                                <td class="pull-right">
+                    <div class="info-box-content">
+                <span>
+                    <h4><a href="{{ route('zone.show', $zone) }}">{{ $zone->name }}</a></h4>
+                </span>
+                <span class="progress-description"> Crop:
+                    {{ $zone->crop }}
+                </span>
+                <span class="progress-description"> Area:
+                   <a href="{{ route('area.show', $zone->area->id) }}">{{ $zone->area->name }}</a>
+                </span>
+                    </div>
+                    <!-- /.info-box-content -->
+                </div>
+                <div class="row">
 
-                                    {{ html()->form('DELETE', route('zone.destroy', $zone->id))->open() }}
+                    <div class="col-md-6 col-sm-6 col-xs-6">
 
-                                    {{ html()->submit('Delete')->class('btn custom btn-danger') }}
+                        {{ html()->form('GET', route('zone.edit', $zone->id))->open() }}
 
-                                    {{ html()->form()->close() }}
+                        {{ html()->submit('Edit')->class('btn btn-block btn-info') }}
 
-                                </td>
+                        {{ html()->form()->close() }}
 
-                                <td class="pull-right">
+                    </div>
 
-                                    {{ html()->form('GET', route('zone.edit', $zone->id))->open() }}
+                    <div class="col-md-6 col-sm-6 col-xs-6">
 
-                                    {{ html()->submit('Edit')->class('btn custom btn-info') }}
+                        {{ html()->form('DELETE', route('zone.destroy', $zone->id))->open() }}
 
-                                    {{ html()->form()->close() }}
-                                </td>
-                            </tr>
-                        @endforeach
-                    @endforeach
-                </table>
+                        {{ html()->submit('Delete')->class('btn btn-block btn-danger') }}
+
+                        {{ html()->form()->close() }}
+
+                    </div>
+                </div>
+                <br>
             </div>
-        </div>
-    </div>
-    <a href="{{ route('zone.create') }}">
-        <button type="button" class="btn btn-block btn-primary">Create a zone</button>
-    </a>
-    <hr>
-
+        @endforeach
+    @endforeach
 @stop
 
 
