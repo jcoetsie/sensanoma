@@ -3,22 +3,29 @@
     @if(!empty($zone->coordinates[0]->lat))
         <script>
 
-            function DrawMapWithPolygon(myCoords) {
-                var map = new google.maps.Map(document.getElementById('area'), {
-                    zoom: 10,
-                    center: {lat: {{ $zone->coordinates[0]->lat }}, lng: {{ $zone->coordinates[0]->lng }} },
-                    mapTypeId: 'terrain'
-                });
+                function DrawMapWithPolygon(myCoords) {
+                    var map = new google.maps.Map(document.getElementById('area'), {
+                        zoom: 10,
+                        mapTypeId: 'terrain'
+                    });
 
-                var myCoords = [
-                    @foreach($zone->coordinates as $coordinate)
-                    new google.maps.LatLng( {{ $coordinate->lat }}, {{ $coordinate->lng }} ),
-                    @endforeach
-                ];
+                    var bounds = new google.maps.LatLngBounds();
 
-                console.log(myCoords);
+                    var myCoords = [
+                        @foreach($zone->coordinates as $coordinate)
+                        new google.maps.LatLng( {{ $coordinate->lat }}, {{ $coordinate->lng }} ),
+                        @endforeach
+                    ];
 
-                // Construct the polygon.
+                    for (i = 0; i < myCoords.length; i++) {
+                        bounds.extend(myCoords[i]);
+                    }
+
+                    map.setCenter({lat: bounds.getCenter().lat(), lng: bounds.getCenter().lng() })
+
+
+
+                    // Construct the polygon.
                 var bermudaTriangle = new google.maps.Polygon({
                     paths: myCoords,
                     strokeColor: '#FF0000',
@@ -40,12 +47,14 @@
     @if(!empty($area->coordinates[0]->lat))
         <script>
 
+
             function DrawMapWithPolygon(myCoords) {
                 var map = new google.maps.Map(document.getElementById('area'), {
                     zoom: 10,
-                    center: {lat: {{ $area->coordinates[0]->lat }}, lng: {{ $area->coordinates[0]->lng }} },
                     mapTypeId: 'terrain'
                 });
+
+                var bounds = new google.maps.LatLngBounds();
 
                 var myCoords = [
                     @foreach($area->coordinates as $coordinate)
@@ -53,7 +62,13 @@
                     @endforeach
                 ];
 
-                console.log(myCoords);
+                for (i = 0; i < myCoords.length; i++) {
+                    bounds.extend(myCoords[i]);
+                }
+
+                map.setCenter({lat: bounds.getCenter().lat(), lng: bounds.getCenter().lng() })
+
+
 
                 // Construct the polygon.
                 var bermudaTriangle = new google.maps.Polygon({
