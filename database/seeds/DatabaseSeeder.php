@@ -11,6 +11,27 @@ class DatabaseSeeder extends Seeder
      */
     public function run()
     {
-        // $this->call(UsersTableSeeder::class);
+
+        //$this->call();
+
+        // Create an User binded to an account
+        $user = factory(App\Models\User::class)->create();
+
+        // Create an Area, bind it to an account
+        $areas = factory(App\Models\Area::class, rand(1, 3))->create([
+            'account_id' => $user->account->id
+        ]);
+
+        // Create a Zone, bind it to an area
+        $zones = new \Illuminate\Support\Collection();
+        foreach ($areas as $area)
+            $zones->push(factory(App\Models\Zone::class, rand(1, 5))->create(['area_id' => $area->id]));
+
+
+        // Create a Sensor Node, bind it to an account and a zone
+        foreach ($zones as $zone)
+            foreach($zone->toArray() as $zone)
+                factory(App\Models\SensorNode::class)->create(['account_id' => $user->account->id, 'zone_id' => $zone['id']]);
+
     }
 }

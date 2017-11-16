@@ -25,6 +25,7 @@ class SensorNodeRequest extends FormRequest
     {
         return [
             'name' => 'required|min:3',
+            'type' => 'required|min:2',
             'zone_id' => 'exists:zones,id'
         ];
     }

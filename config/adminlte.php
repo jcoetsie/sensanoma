@@ -129,11 +129,6 @@ return [
             'text' => 'SensorNode',
             'url'  => 'sensor_node',
             'icon' => 'microchip',
-        ],
-        [
-            'text' => 'SensorNodeType',
-            'url'  => 'sensor_node_type',
-            'icon' => 'microchip',
         ]
     ],
 

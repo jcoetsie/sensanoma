@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class SensorNode extends Model
 {
-    protected $fillable = ['name', 'zone_id'];
+    protected $fillable = ['name', 'type', 'zone_id'];
 
     public function zone()
     {
@@ -18,8 +18,8 @@ class SensorNode extends Model
         return $this->belongsTo(Account::class);
     }
 
-    public function sensorNodeTypes()
+    public function getTypeAttribute($type)
     {
-        return $this->hasMany(SensorNodeType::class);
+        return config('sensanoma.sensor_types')[$type];
     }
 }
