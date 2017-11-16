@@ -1,5 +1,4 @@
 <?php
-
 use Illuminate\Database\Seeder;
 
 class DatabaseSeeder extends Seeder
@@ -12,11 +11,26 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
 
-        //$this->call();
+        factory(App\Models\Role::class)->create();
+        factory(App\Models\Role::class)->create([
+            'name' => 'viewer',
+            'display_name' => 'Viewer',
+            'description' => 'Viewer'
+        ]);
 
-        // Create an User binded to an account
+        for($i = 0; $i < 5; $i++)
+        {
+            $this->createUsersWithEachRoles();
+        }
+
+        $this->command->info('The database has been seeded');
+
+    }
+
+    public function createUsersWithEachRoles()
+    {
         $user = factory(App\Models\User::class)->create();
-
+        $user->attachRole('admin');
         // Create an Area, bind it to an account
         $areas = factory(App\Models\Area::class, rand(1, 3))->create([
             'account_id' => $user->account->id
@@ -33,5 +47,8 @@ class DatabaseSeeder extends Seeder
             foreach($zone->toArray() as $zone)
                 factory(App\Models\SensorNode::class)->create(['account_id' => $user->account->id, 'zone_id' => $zone['id']]);
 
+        $viewer = factory(App\Models\User::class)->create(['account_id' => $user->account->id]);
+        $viewer->attachRole('viewer');
     }
+
 }
