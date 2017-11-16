@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class SensorNode extends Model
 {
-    protected $fillable = ['name', 'zone_id'];
+    protected $fillable = ['name', 'type', 'zone_id'];
 
     public function zone()
     {
