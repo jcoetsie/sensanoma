@@ -23,8 +23,6 @@ class AccountController extends Controller
     public function index()
     {
         $account = Auth::user()->account;
-        if(!$account)
-            return redirect(route('home'))->with('warning', 'You are not assigned to an account');
 
         return view('account.index', compact('account'));
     }
@@ -81,11 +79,7 @@ class AccountController extends Controller
      */
     public function update(AccountRequest $request, Account $account)
     {
-        $find = Account::findOrFail($account->id);
-
-        $find->name = $request->get('name');
-
-        $find->save();
+        Auth::user()->account->update($request->toArray());
 
         return Redirect(route('account.index'))->with('success','The account was updated');
     }
@@ -98,7 +92,7 @@ class AccountController extends Controller
      */
     public function destroy(Account $account)
     {
-        Account::destroy($account->id);
+        Auth::user()->account->destroy(Auth::user()->account->id);
 
         return Redirect(route('account.index'))->with('success','The account was deleted');
     }
