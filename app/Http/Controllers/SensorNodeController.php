@@ -34,12 +34,7 @@ class SensorNodeController extends Controller
      */
     public function create()
     {
-        $userZones = Auth::user()->account->zones()->get();
-
-        if(!$userZones->toArray())
-            return redirect(route('sensor_node.index'))->with('danger', 'You need to create a zone first.');
-
-        $zones = $userZones->pluck('name', 'id');
+        $zones = Auth::user()->account->zones()->get()->pluck('name', 'id');
 
         return view('sensor_node.create', compact('zones'));
     }
@@ -52,11 +47,8 @@ class SensorNodeController extends Controller
      */
     public function store(SensorNodeRequest $request)
     {
-        $zone = Auth::user()->account->zones()->find($request->zone_id);
-        if(!$zone)
-            return redirect()->back()->withInput($request->toArray())->with('danger', 'An error occurred. Try again.');
-
         Auth::user()->account->sensorNodes()->create($request->toArray());
+
         return redirect(route('sensor_node.index'))->with('success', 'The Sensor Node has been created');
     }
 
@@ -68,6 +60,8 @@ class SensorNodeController extends Controller
      */
     public function show(SensorNode $sensorNode)
     {
+        $this->authorize('view', $sensorNode);
+
         return view('sensor_node.show', compact('sensorNode'));
     }
 
@@ -79,9 +73,8 @@ class SensorNodeController extends Controller
      */
     public function edit(SensorNode $sensorNode)
     {
-        $userZones = Auth::user()->account->zones()->get();
-
-        $zones = $userZones->pluck('name', 'id');
+        $this->authorize('view', $sensorNode);
+        $zones = Auth::user()->account->zones()->get()->pluck('name', 'id');
 
         return view('sensor_node.edit', compact('sensorNode', 'zones'));
     }
@@ -95,11 +88,9 @@ class SensorNodeController extends Controller
      */
     public function update(SensorNodeRequest $request, SensorNode $sensorNode)
     {
-        $zone = Auth::user()->account->zones()->find($request->zone_id);
-        if(!$zone)
-            return redirect()->back()->withInput($request->toArray())->with('danger', 'An error occurred. Try again.');
-
+        $this->authorize('update', $sensorNode);
         $sensorNode->update($request->toArray());
+
         return redirect(route('sensor_node.index'))->with('success', 'The Sensor Node has been updated');
     }
 
@@ -111,6 +102,7 @@ class SensorNodeController extends Controller
      */
     public function destroy(SensorNode $sensorNode)
     {
+        $this->authorize('delete', $sensorNode);
         $sensorNode->destroy($sensorNode->id);
 
         return redirect(route('sensor_node.index'))->with('success', 'The Sensor Node has been deleted');
