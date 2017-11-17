@@ -23,17 +23,6 @@ class ZonePolicy
     }
 
     /**
-     * Determine whether the user can create zones.
-     *
-     * @param  \App\Models\User  $user
-     * @return mixed
-     */
-    public function create(User $user)
-    {
-        return true;
-    }
-
-    /**
      * Determine whether the user can update the zone.
      *
      * @param  \App\Models\User  $user

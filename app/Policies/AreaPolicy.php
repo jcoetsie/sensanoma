@@ -23,17 +23,6 @@ class AreaPolicy
     }
 
     /**
-     * Determine whether the user can create areas.
-     *
-     * @param  \App\Models\User  $user
-     * @return mixed
-     */
-    public function create(User $user, Area $area)
-    {
-        return $user->hasRole('admin');
-    }
-
-    /**
      * Determine whether the user can update the area.
      *
      * @param  \App\Models\User  $user

@@ -23,17 +23,6 @@ class SensorNodePolicy
     }
 
     /**
-     * Determine whether the user can create sensorNodes.
-     *
-     * @param  \App\Models\User  $user
-     * @return mixed
-     */
-    public function create(User $user)
-    {
-        return true;
-    }
-
-    /**
      * Determine whether the user can update the sensorNode.
      *
      * @param  \App\Models\User  $user
