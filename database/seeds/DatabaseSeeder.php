@@ -18,8 +18,7 @@ class DatabaseSeeder extends Seeder
             'description' => 'Viewer'
         ]);
 
-        for($i = 0; $i < 5; $i++)
-        {
+        for ($i = 0; $i < 5; $i++) {
             $this->createUsersWithEachRoles();
         }
 
@@ -38,14 +37,20 @@ class DatabaseSeeder extends Seeder
 
         // Create a Zone, bind it to an area
         $zones = new \Illuminate\Support\Collection();
-        foreach ($areas as $area)
+        foreach ($areas as $area) {
             $zones->push(factory(App\Models\Zone::class, rand(1, 5))->create(['area_id' => $area->id]));
+        }
 
 
         // Create a Sensor Node, bind it to an account and a zone
-        foreach ($zones as $zone)
-            foreach($zone->toArray() as $zone)
-                factory(App\Models\SensorNode::class)->create(['account_id' => $user->account->id, 'zone_id' => $zone['id']]);
+        foreach ($zones as $zone) {
+            foreach ($zone->toArray() as $zone) {
+                factory(App\Models\SensorNode::class)->create([
+                    'account_id' => $user->account->id,
+                    'zone_id' => $zone['id']
+                ]);
+            }
+        }
 
         $viewer = factory(App\Models\User::class)->create(['account_id' => $user->account->id]);
         $viewer->attachRole('viewer');
