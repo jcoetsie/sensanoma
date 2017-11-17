@@ -70,7 +70,6 @@ class AreaController extends Controller
      */
     public function edit(Area $area)
     {
-        $this->authorize('show', $area);
         return view('area.edit', compact('area'));
     }
 
