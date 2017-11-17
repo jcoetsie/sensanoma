@@ -54,6 +54,6 @@ class ZonePolicy
      */
     public function delete(User $user, Zone $zone)
     {
-        //
+        return $user->account_id == $zone->area->account_id;
     }
 }
