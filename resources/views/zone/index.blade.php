@@ -14,50 +14,44 @@
 @stop
 
 @section('content')
-    @foreach($areas as $area)
-        @foreach($area->zones as $zone)
-            <div class="col-md-6 col-sm-12 col-xs-12">
-                <div class="info-box">
-                    <span class="info-box-icon bg-aqua"><i class="fa fa-fw fa-flag "></i></span>
-
-                    <div class="info-box-content">
-                <span>
+    @foreach($zones as $zone)
+        <div class="col-md-6 col-sm-12 col-xs-12">
+            <div class="info-box">
+                <span class="info-box-icon bg-aqua"><i class="fa fa-fw fa-flag "></i></span>
+                <div class="info-box-content">
                     <h4><a href="{{ route('zone.show', $zone) }}">{{ $zone->name }}</a></h4>
-                </span>
-                <span class="progress-description"> Crop:
-                    {{ $zone->crop }}
-                </span>
-                <span class="progress-description"> Area:
-                   <a href="{{ route('area.show', $zone->area->id) }}">{{ $zone->area->name }}</a>
-                </span>
-                    </div>
-                    <!-- /.info-box-content -->
+                    <span class="progress-description"> Crop:
+                        {{ $zone->crop }}
+                    </span>
+                    <span class="progress-description"> Area:
+                        <a href="{{ route('area.show', $zone->area->id) }}">{{ $zone->area->name }}</a>
+                    </span>
                 </div>
-                <div class="row">
-
-                    <div class="col-md-6 col-sm-6 col-xs-6">
-
-                        {{ html()->form('GET', route('zone.edit', $zone->id))->open() }}
-
-                        {{ html()->submit('Edit')->class('btn btn-block btn-info') }}
-
-                        {{ html()->form()->close() }}
-
-                    </div>
-
-                    <div class="col-md-6 col-sm-6 col-xs-6">
-
-                        {{ html()->form('DELETE', route('zone.destroy', $zone->id))->open() }}
-
-                        {{ html()->submit('Delete')->class('btn btn-block btn-danger') }}
-
-                        {{ html()->form()->close() }}
-
-                    </div>
-                </div>
-                <br>
             </div>
-        @endforeach
+            <div class="row">
+
+                <div class="col-md-6 col-sm-6 col-xs-6">
+
+                    {{ html()->form('GET', route('zone.edit', $zone->id))->open() }}
+
+                    {{ html()->submit('Edit')->class('btn btn-block btn-info') }}
+
+                    {{ html()->form()->close() }}
+
+                </div>
+
+                <div class="col-md-6 col-sm-6 col-xs-6">
+
+                    {{ html()->form('DELETE', route('zone.destroy', $zone->id))->open() }}
+
+                    {{ html()->submit('Delete')->class('btn btn-block btn-danger') }}
+
+                    {{ html()->form()->close() }}
+
+                </div>
+            </div>
+            <br>
+        </div>
     @endforeach
 @stop
 
