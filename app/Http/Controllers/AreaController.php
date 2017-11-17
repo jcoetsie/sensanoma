@@ -44,7 +44,6 @@ class AreaController extends Controller
      */
     public function store(AreaRequest $request, Area $area)
     {
-        $this->authorize('create', $area);
         Auth::user()->account->areas()->create($request->toArray());
       
         return redirect(route('area.index'))->with('success', 'The Area has been created');
@@ -58,7 +57,7 @@ class AreaController extends Controller
      */
     public function show(Area $area)
     {
-        $area = Area::findOrFail($area->id);
+        $this->authorize('view', $area);
         return view('area.show', compact('area'));
     }
 
@@ -70,6 +69,7 @@ class AreaController extends Controller
      */
     public function edit(Area $area)
     {
+        $this->authorize('view', $area);
         return view('area.edit', compact('area'));
     }
 
