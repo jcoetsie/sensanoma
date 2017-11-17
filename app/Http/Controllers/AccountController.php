@@ -68,6 +68,7 @@ class AccountController extends Controller
      */
     public function edit(Account $account)
     {
+        $this->authorize('view', $account);
         return view('account.edit', compact('account'));
     }
 
@@ -80,6 +81,7 @@ class AccountController extends Controller
      */
     public function update(AccountRequest $request, Account $account)
     {
+        $this->authorize('update', $account);
         Auth::user()->account->update($request->toArray());
 
         return Redirect(route('account.index'))->with('success','The account was updated');
@@ -93,7 +95,8 @@ class AccountController extends Controller
      */
     public function destroy(Account $account)
     {
-        Auth::user()->account->destroy(Auth::user()->account->id);
+        $this->authorize('delete', $account);
+        $account->destroy($account->id);
 
         return Redirect(route('account.index'))->with('success','The account was deleted');
     }

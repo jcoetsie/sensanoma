@@ -42,8 +42,9 @@ class AreaController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(AreaRequest $request)
+    public function store(AreaRequest $request, Area $area)
     {
+        $this->authorize('create', $area);
         Auth::user()->account->areas()->create($request->toArray());
       
         return redirect(route('area.index'))->with('success', 'The Area has been created');
@@ -69,6 +70,7 @@ class AreaController extends Controller
      */
     public function edit(Area $area)
     {
+        $this->authorize('show', $area);
         return view('area.edit', compact('area'));
     }
 
@@ -81,6 +83,7 @@ class AreaController extends Controller
      */
     public function update(AreaRequest $request, Area $area)
     {
+        $this->authorize('update', $area);
         $area->update($request->toArray());
 
         return redirect(route('area.show', $area))->with('success', 'The Area has been updated');
@@ -95,6 +98,7 @@ class AreaController extends Controller
      */
     public function destroy(Area $area)
     {
+        $this->authorize('delete', $area);
         $area->destroy($area->id);
       
         return redirect(route('area.index'))->with('success', 'The Area has been deleted');
