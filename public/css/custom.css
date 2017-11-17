@@ -8,3 +8,6 @@
 .borderless td, .borderless th {
     border: none !important;
 }
+#head_label{
+    font-size: 1.8em;
+}

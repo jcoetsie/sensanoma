@@ -2,8 +2,10 @@
 
 @section('content_header')
     @include('layouts.flash')
-    <div class="col-md-6 col-sm-10 col-xs-12 col-md-offset-3 col-sm-offset-1">
-        <h2>Account</h2>
+    <div class="row">
+        <div class="col-md-6 col-sm-10 col-xs-12 col-md-offset-3 col-sm-offset-1">
+            <h2>Account</h2>
+        </div>
     </div>
 @stop
 
@@ -12,45 +14,24 @@
 @stop
 
 @section('content')
-
-    <div class="col-md-6 col-sm-10 col-xs-12 col-md-offset-3 col-sm-offset-1">
-        <div class="info-box">
-            <span class="info-box-icon bg-aqua"><i class="fa fa-user"></i></span>
-
-            <div class="info-box-content">
-                <span>
-                    <h4><a href="{{ route('account.show', $account) }}">{{ $account->name }}</a></h4>
-                </span>
-                <span>
-                    <h4>Created in: {{  Carbon\Carbon::parse($account->created_at)->toFormattedDateString()  }}</h4>
-                </span>
+    <div class='row'>
+        <div class="col-md-6 col-sm-10 col-xs-12 col-md-offset-3 col-sm-offset-1">
+            <div class="info-box">
+                <a href="{{ route('account.show', $account) }}">
+                    <span class="info-box-icon bg-aqua"><i class="fa fa-user"></i></span>
+                </a>
+                <div class="info-box-content">
+                    <span>
+                        <h4><a href="{{ route('account.show', $account) }}">{{ $account->name }}</a></h4>
+                    </span>
+                    <span>
+                        <h4>Created in: {{  Carbon\Carbon::parse($account->created_at)->toFormattedDateString()  }}</h4>
+                    </span>
+                </div>
+                <!-- /.info-box-content -->
             </div>
-            <!-- /.info-box-content -->
+            <br>
         </div>
-        <div class="row">
-
-            <div class="col-md-6 col-sm-6 col-xs-6">
-
-                {{ html()->form('GET', route('account.edit', $account->id))->open() }}
-
-                {{ html()->submit('Edit')->class('btn btn-block btn-info') }}
-
-                {{ html()->form()->close() }}
-
-            </div>
-
-            <div class="col-md-6 col-sm-6 col-xs-6">
-
-                {{ html()->form('DELETE', route('account.destroy', $account->id))->open() }}
-
-                {{ html()->submit('Delete')->class('btn btn-block btn-danger') }}
-
-                {{ html()->form()->close() }}
-
-            </div>
-        </div>
-        <br>
     </div>
-
 
 @stop
