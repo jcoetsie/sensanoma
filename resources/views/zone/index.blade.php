@@ -4,7 +4,7 @@
     @include('layouts.flash')
     <div class="row">
         <div class="col-md-12">
-            <h2>All areas
+            <h2>All zones
                 <a href="{{ route('zone.create') }}"><button type="button" class="btn btn-flat btn-primary pull-right">Create an area</button></a>
             </h2>
         </div>
