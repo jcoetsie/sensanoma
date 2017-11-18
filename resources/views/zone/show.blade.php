@@ -8,7 +8,7 @@
     @include('layouts.flash')
     <div class="row">
         <div class="form-group">
-            <label id="head_label" class="col-md-6 col-sm-6 col-xs-12">Area Settings</label>
+            <label id="head_label" class="col-md-6 col-sm-6 col-xs-12">Zone Settings</label>
 
             <div class="col-md-6 col-sm-6 hidden-xs">
 
