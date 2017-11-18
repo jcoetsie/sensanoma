@@ -20,6 +20,6 @@ class SensorNode extends Model
 
     public function getTypeAttribute($type)
     {
-        return config('sensanoma.sensor_types')[$type];
+        return config('sensanoma.sensor_node_types')[$type];
     }
 }
