@@ -60,7 +60,7 @@ class ZoneControllerAdminTest extends TestCase
     }
 
     /** @test **/
-    public function a_user_with_admin_role_can_create_his_area()
+    public function a_user_with_admin_role_can_create_his_zone()
     {
         $response = $this->actingAs($this->userAdmin)
             ->get(route('zone.create'));
@@ -69,7 +69,7 @@ class ZoneControllerAdminTest extends TestCase
     }
 
     /** @test **/
-    public function a_user_with_admin_role_can_store_his_area()
+    public function a_user_with_admin_role_can_store_his_zone()
     {
         $response = $this->actingAs($this->userAdmin)
             ->post(route('zone.store', $this->zone), ['name' => 'newName', 'crop' => 'newCrop', 'coordinates' => '{}', 'area_id' => 1]);

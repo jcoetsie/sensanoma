@@ -64,7 +64,7 @@ class ZoneControllerViewerTest extends TestCase
     }
 
     /** @test **/
-    public function a_user_with_viewer_role_cannot_create_his_area()
+    public function a_user_with_viewer_role_cannot_create_his_zone()
     {
         $response = $this->actingAs($this->userViewer)
             ->get(route('zone.create'));
@@ -73,7 +73,7 @@ class ZoneControllerViewerTest extends TestCase
     }
 
     /** @test **/
-    public function a_user_with_viewer_role_cannot_store_his_area()
+    public function a_user_with_viewer_role_cannot_store_his_zone()
     {
         $response = $this->actingAs($this->userViewer)
             ->post(route('zone.store', $this->zone), ['name' => 'newName', 'crop' => 'newCrop', 'coordinates' => '{}', 'area_id' => 1]);

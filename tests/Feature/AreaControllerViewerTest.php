@@ -52,7 +52,7 @@ class AreaControllerViewerTest extends TestCase
     }
 
     /** @test **/
-    public function a_user_with_viewer_role_can_edit_his_area()
+    public function a_user_with_viewer_role_cannot_edit_his_area()
     {
         $response = $this->actingAs($this->userViewer)
             ->get(route('area.edit', $this->area));
@@ -61,7 +61,7 @@ class AreaControllerViewerTest extends TestCase
     }
 
     /** @test **/
-    public function a_user_with_viewer_role_can_update_his_area()
+    public function a_user_with_viewer_role_cannot_update_his_area()
     {
         $response = $this->actingAs($this->userViewer)
             ->put(route('area.update', $this->area), ['name' => 'newName', 'address' => 'newAddress', 'coordinates' => '{}']);
@@ -70,7 +70,7 @@ class AreaControllerViewerTest extends TestCase
     }
 
     /** @test **/
-    public function a_user_with_viewer_role_can_delete_his_area()
+    public function a_user_with_viewer_role_cannot_delete_his_area()
     {
         $response = $this->actingAs($this->userViewer)
             ->delete(route('area.destroy', $this->area));
