@@ -3,7 +3,6 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\ZoneRequest;
-use App\Models\Area;
 use App\Models\Zone;
 use Illuminate\Support\Facades\Auth;
 
