@@ -10,7 +10,6 @@
 @stop
 
 @section('content')
-    @include('layouts.flash')
     <div class="col-md-12">
         <div class="col-lg-6 col-xs-6">
             <!-- small box -->
