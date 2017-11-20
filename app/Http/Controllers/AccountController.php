@@ -9,12 +9,6 @@ use Illuminate\Support\Facades\Auth;
 class AccountController extends Controller
 {
 
-    public function __construct()
-    {
-        $this->middleware('auth');
-        $this->middleware('role:admin')->except('index', 'show');
-    }
-
     /**
      * Display a listing of the resource.
      *
@@ -23,7 +17,6 @@ class AccountController extends Controller
     public function index()
     {
         $account = Auth::user()->account;
-
         return view('account.index', compact('account'));
     }
 
@@ -35,6 +28,7 @@ class AccountController extends Controller
      */
     public function show(Account $account)
     {
+        $this->authorize('view', $account);
         return view('account.show', compact('account'));
     }
 
