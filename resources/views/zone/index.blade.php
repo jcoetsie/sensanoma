@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-12">
             <h2>All zones
-                <a href="{{ route('zone.create') }}"><button type="button" class="btn btn-flat btn-primary pull-right">Create an area</button></a>
+                <a href="{{ route('zone.create') }}"><button type="button" class="btn btn-flat btn-primary pull-right">Add a zone</button></a>
             </h2>
         </div>
     </div>
@@ -20,7 +20,7 @@
     @foreach($zones as $zone)
             <div class="col-md-6 col-sm-12 col-xs-12">
                 <div class="info-box">
-                    <a href="{{ route('area.show', $zone) }}">
+                    <a href="{{ route('zone.show', $zone) }}">
                         <span class="info-box-icon bg-aqua"><i class="fa fa-fw fa-flag "></i></span>
                     </a>
                     <div class="info-box-content">

@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-12">
             <h2>All areas
-                <a href="{{ route('area.create') }}"><button type="button" class="btn btn-flat btn-primary pull-right">Create an area</button></a>
+                <a href="{{ route('area.create') }}"><button type="button" class="btn btn-flat btn-primary pull-right">Add an area</button></a>
             </h2>
         </div>
     </div>

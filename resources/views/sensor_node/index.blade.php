@@ -5,7 +5,7 @@
     <div class="row">
         <div class="col-md-12">
             <h2>All SensorNodes
-                <a href="{{ route('sensor_node.create') }}"><button type="button" class="btn btn-flat btn-primary pull-right">Create a SensorNode</button></a>
+                <a href="{{ route('sensor_node.create') }}"><button type="button" class="btn btn-flat btn-primary pull-right">Add a SensorNode</button></a>
             </h2>
         </div>
     </div>
