@@ -10,6 +10,7 @@
 @stop
 
 @section('content')
+<div class="row">
     <div class="col-md-12">
         <div class="col-lg-6 col-xs-6">
             <!-- small box -->
@@ -116,7 +117,7 @@
             </div>
         </div>
     </div>
-
+</div>
 
 @stop
 
