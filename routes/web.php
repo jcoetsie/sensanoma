@@ -1,16 +1,23 @@
 <?php
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
+Route::get('/', 'HomeController@index')->name('home');
 
-Route::get('/', function () {
-    return view('welcome');
+Route::group(['middleware' => 'auth'], function () {
+
+    Route::group(['middleware' => 'role:admin'], function() {
+        Route::resource('account', 'AccountController')->except('index', 'show');
+        Route::resource('area', 'AreaController')->except('index', 'show');
+        Route::resource('zone', 'ZoneController')->except('index', 'show');
+        Route::resource('sensor_node', 'SensorNodeController')->except('index', 'show');
+    });
+
+    Route::group(['middleware' => 'role:viewer|admin'], function() {
+        Route::resource('account', 'AccountController')->only('index', 'show');
+        Route::resource('area', 'AreaController')->only('index', 'show');
+        Route::resource('zone', 'ZoneController')->only('index', 'show');
+        Route::resource('sensor_node', 'SensorNodeController')->only('index', 'show');
+    });
+
 });
+
+Auth::routes();

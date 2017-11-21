@@ -1,0 +1,13 @@
+#area{
+    width: 100%;
+    height: 500px;
+}
+.custom{
+    width: 73px !important;
+}
+.borderless td, .borderless th {
+    border: none !important;
+}
+#head_label{
+    font-size: 1.8em;
+}
