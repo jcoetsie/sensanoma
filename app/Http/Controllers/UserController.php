@@ -14,8 +14,8 @@ class UserController extends Controller
 
     public function update(UserRequest $request, User $user){
 
-        if($request->hasFile('avatar')){
-
+        if($request->hasFile('avatar'))
+        {
             $oldavatar = Auth::user()->avatar;
             \File::delete('uploads/avatars/' . $oldavatar);
 
@@ -27,18 +27,24 @@ class UserController extends Controller
                 $user->avatar = $filename;
                 $user->save();
 
-        }else if($request->input('name')){
-
-            Auth::user()->update($request->toArray());
-
         }
-
+        else if($request->input('name'))
+        {
+            Auth::user()->update($request->toArray());
+        }
         return view('user.profile',array('user'=>Auth::user() ));
     }
 
     public function destroy(User $user){
 
-        Auth::user()->destroy(Auth::id());
+        if(Auth::user()->hasRole('admin'))
+        {
+            Auth::user()->account()->delete();
+        }
+        else
+        {
+            Auth::user()->destroy(Auth::id());
+        }
 
         return redirect(route('home'))->with('success', 'The User has been deleted');
     }
