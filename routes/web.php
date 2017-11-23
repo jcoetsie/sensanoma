@@ -18,6 +18,12 @@ Route::group(['middleware' => 'auth'], function () {
         Route::resource('sensor_node', 'SensorNodeController')->only('index', 'show');
     });
 
+    Route::get('user', 'UserController@profile');
+    Route::put('user' , 'UserController@update');
+    // Route::delete('profile/{id}' , 'UserController@destroy');
+    Route::delete('user', 'UserController@destroy')->name('user.delete');
+
 });
 
 Auth::routes();
+

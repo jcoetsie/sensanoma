@@ -3,7 +3,9 @@
 @section('title')
     Sensanoma
 @stop
-
+@section('css')
+    <link rel="stylesheet" href="{{ URL::asset('css/custom.css') }}" />
+@stop
 @section('content_header')
     @include('layouts.flash')
     <h1>Dashboard</h1>
