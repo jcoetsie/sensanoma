@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use Mapper;
+use Auth;
+
 class HomeController extends Controller
 {
     /**
@@ -21,6 +24,18 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home');
+        if(Auth::user()->hasRole('admin'))
+        {
+            return view('home');
+        }
+        else
+        {
+            return view('userHome');
+        }
+
+
+        //Mapper::map(50.8503396, 4.351710300000036, ['zoom' => 10, 'markers' => ['title' => 'My Location', 'animation' => 'DROP'], 'clusters' => ['size' => 10, 'center' => true, 'zoom' => 20]]);
+
+
     }
 }

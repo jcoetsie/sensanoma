@@ -13,6 +13,17 @@
 
 @section('content')
 <div class="row">
+
+    <!--
+
+   <div id="area">
+
+        // Mapper::render()
+
+   </div>
+
+   -->
+
     <div class="col-md-12">
         <div class="col-lg-6 col-xs-6">
             <!-- small box -->
