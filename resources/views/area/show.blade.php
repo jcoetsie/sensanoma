@@ -49,7 +49,11 @@
                        <a href="{{ route('account.show', $area->account->id) }}">{{ $area->account->name }}</a>
                     </span>
                 </div>
+
+
                 <div id="area"></div>
+
+
                 <br>
                 <div class="row">
                     <div class="hidden-lg hidden-md hidden-sm col-xs-6">

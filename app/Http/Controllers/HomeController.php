@@ -26,7 +26,9 @@ class HomeController extends Controller
     {
         if(Auth::user()->hasRole('admin'))
         {
+
             return view('home');
+
         }
         else
         {
@@ -34,7 +36,6 @@ class HomeController extends Controller
         }
 
 
-        //Mapper::map(50.8503396, 4.351710300000036, ['zoom' => 10, 'markers' => ['title' => 'My Location', 'animation' => 'DROP'], 'clusters' => ['size' => 10, 'center' => true, 'zoom' => 20]]);
 
 
     }

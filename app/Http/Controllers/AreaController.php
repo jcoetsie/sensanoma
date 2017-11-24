@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Area;
 use App\Http\Requests\AreaRequest;
 use Illuminate\Support\Facades\Auth;
+use Mapper;
 
 class AreaController extends Controller
 {
@@ -27,6 +28,10 @@ class AreaController extends Controller
      */
     public function create()
     {
+        Mapper::map(0, 0, ['locate' => true,
+                                            'eventBeforeLoad' => 'makePolygon(map);',
+                                            'zoom' => 18]);
+
         return view('area.create');
     }
 
@@ -51,6 +56,8 @@ class AreaController extends Controller
      */
     public function show(Area $area)
     {
+
+
         $this->authorize('view', $area);
         return view('area.show', compact('area'));
     }
@@ -63,6 +70,10 @@ class AreaController extends Controller
      */
     public function edit(Area $area)
     {
+        Mapper::map(0, 0, ['locate' => true,
+            'eventBeforeLoad' => 'makePolygon(map);',
+            'zoom' => 18]);
+
         $this->authorize('view', $area);
         return view('area.edit', compact('area'));
     }

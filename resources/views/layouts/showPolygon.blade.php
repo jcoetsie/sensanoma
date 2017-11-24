@@ -6,7 +6,7 @@
                 function DrawMapWithPolygon(myCoords) {
                     var map = new google.maps.Map(document.getElementById('area'), {
                         zoom: 10,
-                        mapTypeId: 'terrain'
+                        mapTypeId: 'roadmap'
                     });
 
                     var bounds = new google.maps.LatLngBounds();
@@ -22,7 +22,7 @@
                     }
 
                     map.setCenter({lat: bounds.getCenter().lat(), lng: bounds.getCenter().lng() })
-
+                    map.fitBounds(bounds);
 
 
                     // Construct the polygon.
@@ -39,7 +39,7 @@
             }
         </script>
 
-        <script src="https://maps.googleapis.com/maps/api/js?key= {{ env('GOOGLE_KEY') }} &libraries=drawing&callback=DrawMapWithPolygon"
+        <script src="https://maps.googleapis.com/maps/api/js?key= {{ env('GOOGLE_API_KEY') }} &libraries=drawing&callback=DrawMapWithPolygon"
                 async defer></script>
     @endif
 
@@ -50,25 +50,23 @@
 
             function DrawMapWithPolygon(myCoords) {
                 var map = new google.maps.Map(document.getElementById('area'), {
-                    zoom: 10,
-                    mapTypeId: 'terrain'
+                    mapTypeId: 'roadmap'
                 });
 
                 var bounds = new google.maps.LatLngBounds();
 
                 var myCoords = [
                     @foreach($area->coordinates as $coordinate)
-                    new google.maps.LatLng( {{ $coordinate->lat }}, {{ $coordinate->lng }} ),
+                        new google.maps.LatLng( {{ $coordinate->lat }}, {{ $coordinate->lng }} ),
                     @endforeach
                 ];
 
-                for (i = 0; i < myCoords.length; i++) {
+                for (var i = 0; i < myCoords.length; i++) {
                     bounds.extend(myCoords[i]);
                 }
 
-                map.setCenter({lat: bounds.getCenter().lat(), lng: bounds.getCenter().lng() })
-
-
+                map.setCenter({'lat': bounds.getCenter().lat(), 'lng': bounds.getCenter().lng() });
+                map.fitBounds(bounds);
 
                 // Construct the polygon.
                 var bermudaTriangle = new google.maps.Polygon({
@@ -84,7 +82,7 @@
             }
         </script>
 
-        <script src="https://maps.googleapis.com/maps/api/js?key= {{ env('GOOGLE_KEY') }} &libraries=drawing&callback=DrawMapWithPolygon"
+        <script src="https://maps.googleapis.com/maps/api/js?key= {{ env('GOOGLE_API_KEY') }} &libraries=drawing&callback=DrawMapWithPolygon"
                 async defer></script>
     @endif
 
