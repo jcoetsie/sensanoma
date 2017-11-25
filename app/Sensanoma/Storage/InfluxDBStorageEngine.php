@@ -66,11 +66,17 @@ class InfluxDBStorageEngine implements StorageInterface
 
     }
 
-    public function createIfNotExist()
+    public function drop() {
+        InfluxDB::drop();
+    }
+
+    private function createIfNotExist()
     {
         if(!InfluxDB::exists()){
             InfluxDB::create();
         }
     }
+
+
 
 }
