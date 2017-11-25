@@ -19,8 +19,7 @@ class influx extends Command
      */
     protected $signature = 'influx:seed
                                 {--measurement= : Seed influx with special measurement}
-                                {--crop= : Seed influx with special crop}
-                            ';
+                                {--crop= : Seed influx with special crop}';
 
     /**
      * The console command description.
@@ -48,51 +47,52 @@ class influx extends Command
     {
 
         $options = $this->initializeOptions($this->options());
+        $measurements = $this->initializeMeasurements($options);
+        $crops = $this->initializeCrops($options);
 
         $faker = Faker::create();
         $carbon = Carbon::create();
         $dataPoints = new Collection();
 
-        $measurements = [
-            'air_temp', 'air_humidity',
-            'soil_temp', 'soil_humidity',
-            'sun_lumen', 'intern_temp'
-        ];
+        $area = $faker->city;
+        $zone = $faker->streetName;
+        $storage = new InfluxDBStorageEngine($dataPoints);
 
-        if (isset($options['measurement'])) {
-            foreach ($options['measurement'] as $measurement) {
-                array_push($measurements, $measurement);
+        $wipe = $this->askWithCompletion('Should wipe old data ? Y/n', ['y', 'n'], 'y');
+        if (strtolower($wipe) == 'y') {
+            $this->info('Erasing data..');
+            $storage->drop();
+        }
+
+        $this->info('Seeding..');
+
+        foreach ($measurements as $measurement) {
+            $now = $carbon->now();
+            for ($i = 1; $i < 10000; $i++) {
+                $now->subMinutes(10);
+                $dataPoint = new DataPoint();
+                $dataPoint->setMeasurement($measurement);
+                $dataPoint->setValue(random_int(8, 15));
+                $dataPoint->setArea($area);
+                $dataPoint->setZone($zone);
+                $dataPoint->setAccountId(1);
+                $dataPoint->setSensornodeId(1);
+                $dataPoint->setCrop(array_random($crops));
+                $dataPoint->setTimestamp($now->timestamp);
+                $dataPoints->push($dataPoint);
             }
         }
 
-        $crops = ['Tomato', 'Broccoli', 'Avocado', 'Brussels sprout', 'Carrot', 'Grape'];
-
-
-
-        for ($i = 1; $i < 500; $i++) {
-            $measurement = array_random($measurements);
-
-            $now = $carbon->min()->subMinutes($i);
-
-            $dataPoint = new DataPoint();
-            $dataPoint->setMeasurement($measurement);
-            $dataPoint->setValue(random_int(1, 15));
-            $dataPoint->setArea($faker->city);
-            $dataPoint->setZone($faker->streetName);
-            $dataPoint->setAccountId(random_int(1, 15));
-            $dataPoint->setSensornodeId(random_int(1, 100));
-            $dataPoint->setCrop(array_random($crops));
-            $dataPoint->setTimestamp($now->timestamp);
-            $dataPoints->push($dataPoint);
-        }
-
-        $storage = new InfluxDBStorageEngine($dataPoints);
         $storage->store();
         $this->info('The influxDB has been seeded!');
 
     }
 
-    public function initializeOptions(array $options)
+    /**
+     * @param array $options
+     * @return array
+     */
+    private function initializeOptions(array $options)
     {
         $options = [];
         foreach ($this->options() as $key => $value) {
@@ -101,5 +101,49 @@ class influx extends Command
             }
         }
         return $options;
+    }
+
+    /**
+     * @param array $options
+     * @return array
+     */
+    private function initializeMeasurements(array $options)
+    {
+        $measurements = [
+            'air_temp', 'air_humidity',
+            'soil_temp', 'soil_humidity',
+            'sun_lumen', 'intern_temp'
+        ];
+
+        if (isset($options['measurement'])) {
+            $measurements = [];
+            foreach ($options['measurement'] as $measurement) {
+                array_push($measurements, $measurement);
+            }
+        }
+
+        return $measurements;
+    }
+
+    /**
+     * @param array $options
+     * @return array
+     */
+    private function initializeCrops(array $options)
+    {
+        $crops = [
+            'Tomato', 'Broccoli',
+            'Avocado', 'Brussels sprout',
+            'Carrot', 'Grape'
+        ];
+
+        if (isset($options['crop'])) {
+            $crops = [];
+            foreach ($options['crop'] as $crop) {
+                array_push($crops, $crop);
+            }
+        }
+
+        return $crops;
     }
 }
