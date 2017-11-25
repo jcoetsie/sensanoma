@@ -42,13 +42,13 @@ class SensorNodeControllerAdminTest extends TestCase
     }
 
     /** @test **/
-    public function it_should_return_a_collection_of_account()
+    public function it_should_return_an_account()
     {
         $this->assertInstanceOf('App\Models\Account', $this->sensorNode->account);
     }
 
     /** @test **/
-    public function it_should_return_a_collection_of_zone()
+    public function it_should_return_a_zone()
     {
         $this->assertInstanceOf('App\Models\Zone', $this->sensorNode->zone);
     }

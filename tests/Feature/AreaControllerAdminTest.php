@@ -5,6 +5,7 @@ namespace Tests\Feature;
 use App\Models\Area;
 use App\Models\Role;
 use App\Models\User;
+use App\Models\Zone;
 use Tests\TestCase;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 
@@ -31,12 +32,13 @@ class AreaControllerAdminTest extends TestCase
         $this->userAdmin2->attachRole('admin');
 
         $this->area = factory(Area::class)->create(['account_id' => $this->userAdmin->account->id]);
+        $this->zone = factory(Zone::class)->create(['area_id' => $this->area->id]);
     }
 
     /** @test **/
-    public function it_should_return_a_collection_of_areas()
+    public function it_should_return_an_area()
     {
-        $this->assertInstanceOf('Illuminate\Database\Eloquent\Collection', $this->area->zones()->get());
+        $this->assertInstanceOf('App\Models\Zone', $this->area->zones()->first());
     }
 
     /** @test **/
