@@ -19,7 +19,8 @@ class influx extends Command
      */
     protected $signature = 'influx:seed
                                 {--measurement= : Seed influx with special measurement}
-                                {--crop= : Seed influx with special crop}';
+                                {--crop= : Seed influx with special crop}
+                                {--wipe : Wipe old data}';
 
     /**
      * The console command description.
@@ -58,13 +59,10 @@ class influx extends Command
         $zone = $faker->streetName;
         $storage = new InfluxDBStorageEngine($dataPoints);
 
-        $wipe = $this->askWithCompletion('Should wipe old data ? Y/n', ['y', 'n'], 'y');
-        if (strtolower($wipe) == 'y') {
+        if (isset($options['wipe'])) {
             $this->info('Erasing data..');
             $storage->drop();
         }
-
-        $this->info('Seeding..');
 
         foreach ($measurements as $measurement) {
             $now = $carbon->now();
@@ -85,7 +83,6 @@ class influx extends Command
 
         $storage->store();
         $this->info('The influxDB has been seeded!');
-
     }
 
     /**
@@ -100,6 +97,7 @@ class influx extends Command
                 $options[$key] = explode(',', str_replace(' ', '', $value));
             }
         }
+
         return $options;
     }
 
