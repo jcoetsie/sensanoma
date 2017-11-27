@@ -2,14 +2,17 @@ function makePolygon(map) {
 
     document.querySelector('#area').style.display = "block";
 
-    var map, infoWindow;
+    var map;
 
     map = new google.maps.Map(document.getElementById('area'), {
         center: {lat: 50.85451938, lng: 4.35601451},
-        zoom: 8
+        zoom: 18
     });
 
-    infoWindow = new google.maps.InfoWindow;
+    marker = new google.maps.Marker({
+        map: map,
+        icon: 'http://maps.google.com/mapfiles/ms/icons/red-dot.png'
+    });;
 
     if (navigator.geolocation) {
         navigator.geolocation.getCurrentPosition(function(position) {
@@ -18,22 +21,18 @@ function makePolygon(map) {
                 lng: position.coords.longitude
             };
 
-            infoWindow.setPosition(pos);
-            infoWindow.open(map);
+            marker.setPosition(pos);
             map.setCenter(pos);
         }, function() {
-            handleLocationError(true, infoWindow, map.getCenter());
+            handleLocationError(true, marker, map.getCenter());
         }); } else {
         // Browser doesn't support Geolocation
-        handleLocationError(false, infoWindow, map.getCenter());
+        handleLocationError(false, marker, map.getCenter());
             }
 
-        function handleLocationError(browserHasGeolocation, infoWindow, pos) {
-            infoWindow.setPosition(pos);
-            infoWindow.setContent(browserHasGeolocation ?
-                'Error: The Geolocation service failed.' :
-                'Error: Your browser doesn\'t support geolocation.');
-            infoWindow.open(map);
+        function handleLocationError(marker, pos) {
+            marker.setPosition(pos);
+            marker.open(map);
         }
 
     var drawingManager = new google.maps.drawing.DrawingManager({
@@ -41,7 +40,7 @@ function makePolygon(map) {
         drawingControl: true,
         drawingControlOptions: {
             position: google.maps.ControlPosition.TOP_CENTER,
-            drawingModes: ['polygon']
+            drawingModes: ['polygon'],
         }
     });
 

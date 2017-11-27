@@ -10,7 +10,8 @@
 @stop
 
 @section('content')
-<div class="row">
+    @include('layouts.editPolygon')
+    <div class="row">
     {{ html()->form('PUT', route('zone.update', $zone))->open() }}
     <div class="col-md-12">
         {{ html()->submit('Update')->class('btn btn-primary pull-right hidden-lg hidden-md hidden-sm') }}
@@ -59,11 +60,7 @@
                         </table>
                     </div>
                 </div>
-            <div id="area">
-
-                {!! Mapper::render() !!}
-
-            </div>
+            <div id="area"></div>
         </div>
         <div class="form-group">
             {{ html()->submit('Update')->class('btn btn-primary pull-right') }}
@@ -74,7 +71,6 @@
 @stop
 
 @section('js')
-    <script type="text/javascript" src="{{ URL::asset('js/polygon/make.js') }}"></script>
     <script src="https://maps.googleapis.com/maps/api/js?key={{ env('GOOGLE_KEY') }}&libraries=drawing" async
             defer></script>
 
