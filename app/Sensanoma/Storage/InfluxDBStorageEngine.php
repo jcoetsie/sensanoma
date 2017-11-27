@@ -52,31 +52,48 @@ class InfluxDBStorageEngine implements StorageInterface
         return InfluxDB::writePoints($points, \InfluxDB\Database::PRECISION_SECONDS);
     }
 
-    public function read($measurement)
+    /**
+     * @param $measurement
+     * @param array $params
+     * @return array|Collection
+     */
+    public function read($measurement, Array $params = [])
     {
+        $influxBuilder = new InfluxQueryBuilder();
+
+        $query = $influxBuilder
+            ->select($params['select'])
+            ->from("autogen.{$measurement}")
+            ->where($params['where'])
+            ->groupBy($params['groupBy'])
+            ->fill($params['fill'])
+            ->build();
+
         try{
-            $query = InfluxDB::query('SELECT mean(value) FROM autogen.' .$measurement. ' WHERE time > now() - 10d GROUP BY time(30m) fill(linear)');
+            $query = InfluxDB::query($query);
         } catch (Exception $e){
             return [
                 'error' => $e->getMessage()
             ];
         }
 
-        return $query->getPoints();
-
+        return new Collection($query->getPoints());
     }
 
+    /**
+     * Drop database
+     */
     public function drop() {
         InfluxDB::drop();
     }
 
+    /**
+     * Create database if the database doesnt exist
+     */
     private function createIfNotExist()
     {
         if(!InfluxDB::exists()){
             InfluxDB::create();
         }
     }
-
-
-
 }
