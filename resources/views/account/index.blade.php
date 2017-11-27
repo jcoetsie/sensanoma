@@ -33,5 +33,36 @@
             <br>
         </div>
     </div>
+    <div class="row">
+        <div class="col-md-6 col-sm-10 col-xs-12 col-md-offset-3 col-sm-offset-1">
+            <h2 class="text-center">Account users</h2>
+        </div>
+    </div>
+    <div class='row'>
+            <div class="col-md-12">
+                    @foreach($viewers as $viewer)
+                    <div class="col-md-4 col-sm-4 col-xs-6">
+                        <div class="info-box">
+                                <span class="info-box-icon bg-aqua"><i class="fa fa-user"></i></span>
+                            <div class="info-box-content">
+                                <span>
+                                    <h4>{{ $viewer->name }}</h4>
+                                </span>
+                                <!-- viewer destroy au lieu de user -->
+                                    {{ html()->form('DELETE', route('user.destroy', $viewer->id ))->open() }}
+
+                                    {{ html()->submit('Delete')->class('btn btn-danger')->style('float:right;') }}
+
+                                    {{ html()->form()->close() }}
+                                <span>
+                                    <h4>Created in: {{  Carbon\Carbon::parse($viewer->created_at)->toFormattedDateString()  }}</h4>
+                                </span>
+                            </div>
+                        </div>
+                        <br>
+                    </div>
+                    @endforeach
+            </div>
+        </div>
 
 @stop

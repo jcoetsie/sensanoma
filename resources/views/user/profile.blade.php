@@ -70,6 +70,7 @@
                         {{ html()->submit('Delete')->class('btn btn-danger')->style('float:left;') }}
 
                         {{ html()->form()->close() }}
+
                     </div>
 
 

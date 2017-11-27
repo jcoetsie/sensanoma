@@ -8,14 +8,14 @@ use Image;
 
 class UserController extends Controller
 {
-    public function profile(){
+    public function profile()
+    {
         return view('user.profile',array('user'=>Auth::user() ));
     }
 
     public function update(UserRequest $request, User $user){
 
-        if($request->hasFile('avatar'))
-        {
+        if($request->hasFile('avatar')) {
             $oldavatar = Auth::user()->avatar;
             \File::delete('uploads/avatars/' . $oldavatar);
 
@@ -28,8 +28,7 @@ class UserController extends Controller
                 $user->save();
 
         }
-        else if($request->input('name'))
-        {
+        else if($request->input('name')) {
             Auth::user()->update($request->toArray());
         }
         return view('user.profile',array('user'=>Auth::user() ));
