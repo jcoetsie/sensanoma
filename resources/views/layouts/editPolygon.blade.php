@@ -38,6 +38,7 @@
                 polygon.setMap(map);
 
                 google.maps.event.addListener(polygon.getPath(), 'set_at', newPolyCoords);
+                google.maps.event.addListener(polygon.getPath(), 'insert_at', newPolyCoords);
 
 
                 function newPolyCoords() {
