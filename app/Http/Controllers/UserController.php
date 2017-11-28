@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 use App\Http\Requests\UserRequest;
+use App\Models\Account;
 use App\Models\User;
 use Auth;
 use Image;
@@ -44,6 +45,15 @@ class UserController extends Controller
         {
             Auth::user()->destroy(Auth::id());
         }
+
+        return redirect(route('home'))->with('success', 'The User has been deleted');
+    }
+
+    public function viewerDestroy($id){
+
+        $user = User::find($id);
+
+        $user->delete();
 
         return redirect(route('home'))->with('success', 'The User has been deleted');
     }

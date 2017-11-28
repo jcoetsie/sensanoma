@@ -8,12 +8,15 @@
 
             <div class="col-md-4 col-sm-5 hidden-xs">
 
-                {{ html()->form('DELETE', route('user.delete', Auth::user() ))->open() }}
+                @if(Auth::user()->hasRole('admin'))
 
-                {{ html()->submit('Delete')->class('btn btn-flat custom btn-danger')->style('float:right; margin-left:2px') }}
+                    {{ html()->form('DELETE', route('user.destroy', Auth::user() ))->open() }}
 
-                {{ html()->form()->close() }}
+                    {{ html()->submit('Delete')->class('btn btn-flat custom btn-danger')->style('float:right; margin-left:2px') }}
 
+                    {{ html()->form()->close() }}
+
+                @endif
             </div>
         </div>
     </div>
@@ -64,13 +67,13 @@
                     </div>
 
                     <div class="hidden-lg hidden-md hidden-sm col-xs-6">
+                        @if(Auth::user()->hasRole('admin'))
+                            {{ html()->form('DELETE', Route('user.destroy', Auth::user()->id ))->open() }}
 
-                        {{ html()->form('DELETE', url('profile', Auth::user()->id ))->open() }}
+                            {{ html()->submit('Delete')->class('btn btn-danger')->style('float:left;') }}
 
-                        {{ html()->submit('Delete')->class('btn btn-danger')->style('float:left;') }}
-
-                        {{ html()->form()->close() }}
-
+                            {{ html()->form()->close() }}
+                        @endif
                     </div>
 
 

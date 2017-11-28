@@ -40,28 +40,37 @@
     </div>
     <div class='row'>
             <div class="col-md-12">
-                    @foreach($viewers as $viewer)
-                    <div class="col-md-4 col-sm-4 col-xs-6">
+                @foreach($viewers as $viewer)
+                    @if(!$viewer->hasRole('admin'))
+                    <div class="col-md-6 col-sm-12 col-xs-12">
                         <div class="info-box">
                                 <span class="info-box-icon bg-aqua"><i class="fa fa-user"></i></span>
                             <div class="info-box-content">
                                 <span>
                                     <h4>{{ $viewer->name }}</h4>
                                 </span>
-                                <!-- viewer destroy au lieu de user -->
-                                    {{ html()->form('DELETE', route('user.destroy', $viewer->id ))->open() }}
+                                <div class="col-md-12">
+                                    <div class="col-md-8 col-sm-8 col-xs-8">
+                                        <span>
+                                            <h5>Created in: {{  Carbon\Carbon::parse($viewer->created_at)->toFormattedDateString()  }}</h5>
+                                        </span>
+                                    </div>
+                                    <div class="col-md-4 col-sm-4 col-xs-4">
+                                        <span>
+                                            {{ html()->form('DELETE', route('viewer.destroy', $viewer->id ))->open() }}
 
-                                    {{ html()->submit('Delete')->class('btn btn-danger')->style('float:right;') }}
+                                            {{ html()->submit('Delete')->class('btn btn-danger pull-right') }}
 
-                                    {{ html()->form()->close() }}
-                                <span>
-                                    <h4>Created in: {{  Carbon\Carbon::parse($viewer->created_at)->toFormattedDateString()  }}</h4>
-                                </span>
+                                            {{ html()->form()->close() }}
+                                        </span>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                         <br>
                     </div>
-                    @endforeach
+                    @endif
+                @endforeach
             </div>
         </div>
 
