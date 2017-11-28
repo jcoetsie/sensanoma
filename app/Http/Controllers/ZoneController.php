@@ -72,9 +72,6 @@ class ZoneController extends Controller
      */
     public function edit(Zone $zone)
     {
-        Mapper::map(0, 0, ['locate' => true,
-            'eventBeforeLoad' => 'makePolygon(map);',
-            'zoom' => 18]);
 
         $this->authorize('view', $zone);
         $areas = Auth::user()->account->areas()->get()->pluck('name', 'id');
