@@ -102,8 +102,7 @@
                 polygon.setMap(map);
 
                 google.maps.event.addListener(polygon.getPath(), 'set_at', newPolyCoords);
-                    console.log(newPolyCoords);
-
+                google.maps.event.addListener(polygon.getPath(), 'insert_at', newPolyCoords);
 
 
                 function newPolyCoords() {
@@ -111,6 +110,8 @@
                     console.log('Bounds changed.');
 
                     var coordinatesArray = polygon.getPath().getArray();
+
+                    console.log(coordinatesArray);
 
                     var myCoords = "[";
                     for (var i = 0; i < coordinatesArray.length; i++) {
