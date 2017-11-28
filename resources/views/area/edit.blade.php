@@ -38,15 +38,11 @@
                             </tr>
                             <tr>
                                 <td>1.</td>
-                                <td>Find the area you want to select</td>
+                                <td>Move each bound to each edge of the desired area</td>
                             </tr>
                             <tr>
                                 <td>2.</td>
-                                <td>Click on each edge of the desired area</td>
-                            </tr>
-                            <tr>
-                                <td>3.</td>
-                                <td>Connect the last line to the first one to close the selected area</td>
+                                <td>Click on the grey bounds to create a new bound if necessary</td>
                             </tr>
                             </tbody>
                         </table>
