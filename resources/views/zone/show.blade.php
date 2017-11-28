@@ -71,6 +71,7 @@
                     </div>
                 </div>
                 <br>
+                <img id="iconmap" src="" alt="">
             </div>
         </div>
     </div>

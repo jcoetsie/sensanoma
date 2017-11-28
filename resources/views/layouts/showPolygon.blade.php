@@ -24,6 +24,15 @@
                     map.setCenter({lat: bounds.getCenter().lat(), lng: bounds.getCenter().lng() })
                     map.fitBounds(bounds);
 
+                    var latcenter = bounds.getCenter().lat();
+                    var lngcenter = bounds.getCenter().lng();
+
+                    @foreach($zone->coordinates as $coordinate)
+                        var coordlat = {{ $coordinate->lat }};
+                        var coordlng = {{ $coordinate->lng }};
+
+                        console.log(coordlat);
+                    @endforeach
 
                     // Construct the polygon.
                 var bermudaTriangle = new google.maps.Polygon({
@@ -36,7 +45,21 @@
                 });
 
                 bermudaTriangle.setMap(map);
-            }
+
+                var iconmap = document.getElementById('iconmap');
+
+                    iconmap.src="http://maps.googleapis.com/maps/api/staticmap?center=" + latcenter +","+ lngcenter +"" +
+                        "&zoom=10" +
+                        "&size=90x90" +
+                        "&maptype=satellite" +
+                        "&sensor=false" +
+                        "&path=color%3ared|weight:1|fill%3awhite|opacity:0.75|" +
+
+
+
+                        +"33.4022475,-111.9426775|33.4022475,-111.9427525|33.4023225,-111.9427525|33.4023225,-111.9426775|33.4022475,-111.9426775";
+
+                }
         </script>
 
         <script src="https://maps.googleapis.com/maps/api/js?key= {{ env('GOOGLE_API_KEY') }} &libraries=drawing&callback=DrawMapWithPolygon"
