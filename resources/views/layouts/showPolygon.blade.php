@@ -48,7 +48,7 @@
                          var coordlat = {{ $coordinate->lat }};
                          var coordlng = {{ $coordinate->lng }};
 
-                        var coords = "|" + coordlat + "," + coordlng ;
+                         var coords = "|" + coordlat + "," + coordlng ;
 
                         mapcoords.push(coords);
 
@@ -58,7 +58,7 @@
 
                     var iconmap = document.getElementById('iconmap');
 
-                    iconmap.src="http://maps.googleapis.com/maps/api/staticmap?center=" + latcenter +","+ lngcenter +"" +
+                    iconmap.src="http://maps.googleapis.com/maps/api/staticmap?center=" + latcenter +","+ lngcenter +
                         "&zoom=" + bounds +
                         "&size=90x90" +
                         "&maptype=satellite" +
@@ -131,7 +131,7 @@
 
             var iconmap = document.getElementById('iconmap');
 
-            iconmap.src="http://maps.googleapis.com/maps/api/staticmap?center=" + latcenter +","+ lngcenter +"" +
+            iconmap.src="http://maps.googleapis.com/maps/api/staticmap?center=" + latcenter +","+ lngcenter +
                 "&zoom=" + bounds +
                 "&size=90x90" +
                 "&maptype=satellite" +
