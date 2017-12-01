@@ -41,7 +41,7 @@
     color: white;
 }
 .voltage-color{
-    background-color: #3a1c85;
+    background-color: #128CDC;
     color: white;
 }
 .lumen-color{
@@ -53,7 +53,7 @@
     animation: blinker 1s linear infinite;
 }
 .warnings-danger{
-    color:red;
+    color: #FA0008;
     animation: blinker 1s linear infinite;
 }
 @keyframes blinker {

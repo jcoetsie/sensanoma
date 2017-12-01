@@ -19,7 +19,7 @@
                 <!-- small box -->
                 <div class="small-box bg-aqua">
                     <div class="inner">
-                        <h3>12<sup style="font-size: 20px">°</sup><i class="fa fa-exclamation-triangle warnings"></i></h3>
+                        <h3>12<sup style="font-size: 20px">°</sup><i class="fa fa-exclamation-triangle"></i></h3>
 
                         <p>Air temperature</p>
                     </div>
@@ -49,7 +49,7 @@
                 <!-- small box -->
                 <div class="small-box soil-colors">
                     <div class="inner">
-                        <h3>18<sup style="font-size: 20px">°</sup><i class="fa fa-exclamation-triangle warnings"></i></h3>
+                        <h3>18<sup style="font-size: 20px">°</sup><i class="fa fa-exclamation-triangle"></i></h3>
 
                         <p>Soil temperature</p>
                     </div>
