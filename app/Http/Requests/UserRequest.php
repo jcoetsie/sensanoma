@@ -27,6 +27,10 @@ class UserRequest extends FormRequest
 
             'name' => 'required|min:3',
             'avatar' => 'image',
+            'current_password' => 'required|string|min:6',
+            'password' => 'required|string|min:6|confirmed',
         ];
     }
+
+
 }

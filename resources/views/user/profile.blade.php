@@ -56,6 +56,23 @@
 
                             {{ html()->text('name')->class('form-control')->value( $user->name ) }}
 
+
+                            {{ html()->label('Current password','current_password')}}
+
+                            {{ html()->password('current_password')->class('form-control') }}
+
+
+                            {{ html()->label('New password','password')}}
+
+                            {{ html()->password('password')->class('form-control') }}
+
+
+                            {{ html()->label('Confirm New Password','password_confirmation')}}
+
+                            {{ html()->password('password_confirmation')->class('form-control') }}
+
+
+
                             {{ html()->label('User Avatar','avatar')}}
 
                             {{ html()->file('avatar') }}
