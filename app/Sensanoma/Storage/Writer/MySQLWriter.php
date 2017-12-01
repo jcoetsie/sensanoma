@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Storage;
+namespace App\Sensanoma\Storage\Writer;
 
 
-use Illuminate\Support\Collection;
-use Illuminate\Support\Facades\DB;
+use App\Sensanoma\Storage\StorageWriterInterface;
 
-class MySQLStorageEngine
+class MySQLWriter implements StorageWriterInterface
 {
     protected $dataPoints;
 
@@ -31,10 +30,4 @@ class MySQLStorageEngine
             return $query;
         }
     }
-
-    public function read($measurement)
-    {
-
-    }
-
 }

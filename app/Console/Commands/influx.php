@@ -2,8 +2,8 @@
 
 namespace App\Console\Commands;
 
-use App\Sensanoma\Storage\DataPoint;
-use App\Sensanoma\Storage\InfluxDBStorageEngine;
+use App\Sensanoma\DataPoint;
+use App\Sensanoma\Storage\Writer\InfluxWriter;
 use Illuminate\Console\Command;
 use Faker\Factory as Faker;
 use Illuminate\Support\Carbon;
@@ -57,7 +57,7 @@ class influx extends Command
 
         $area = $faker->city;
         $zone = $faker->streetName;
-        $storage = new InfluxDBStorageEngine($dataPoints);
+        $storage = new InfluxWriter($dataPoints);
 
         if (isset($options['wipe'])) {
             $this->info('Erasing data..');

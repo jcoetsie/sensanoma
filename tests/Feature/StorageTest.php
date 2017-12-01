@@ -2,8 +2,9 @@
 
 namespace Tests\Feature;
 
-use App\Sensanoma\Storage\DataPoint;
-use App\Sensanoma\Storage\InfluxDBStorageEngine;
+use App\Sensanoma\DataPoint;
+use App\Sensanoma\Storage\Reader\InfluxReader;
+use App\Sensanoma\Storage\Writer\InfluxWriter;
 use Illuminate\Support\Collection;
 use Tests\TestCase;
 
@@ -12,7 +13,8 @@ class StorageTest extends TestCase
 
     public $dataPoint;
     public $dataPoints;
-    public $influxEngine;
+    public $influxWriter;
+    public $influxReader;
 
     public function setUp()
     {
@@ -32,15 +34,17 @@ class StorageTest extends TestCase
         // Make Collection dataPoints
         $this->dataPoints = new Collection();
         $this->dataPoints->push($this->dataPoint);
-        $this->influxEngine = new InfluxDBStorageEngine($this->dataPoints);
+        $this->influxWriter = new InfluxWriter($this->dataPoints);
         // Drop influx database
-        $this->influxEngine->drop();
+        $this->influxWriter->drop();
+
+        $this->influxReader = new InfluxReader();
     }
 
     /** @test */
     public function it_should_store_in_influx()
     {
-        $result = $this->influxEngine->store();
+        $result = $this->influxWriter->store();
 
         $this->assertTrue($result);
     }
@@ -48,13 +52,15 @@ class StorageTest extends TestCase
     /** @test */
     public function it_should_read_influx_data()
     {
-        $this->influxEngine->store();
+        $this->influxWriter->store();
 
-        $result = $this->influxEngine->read('air_temp', [
-            'select'    => 'mean(value)',
+        $result = $this->influxReader->read([
+            'select'    => ['mean(value)'],
+            'from'      => ['air_temp'],
             'where'     => 'time > now() - 1d',
             'groupBy'   => 'time(10m)',
-            'fill'      => 'linear'
+            'fill'      => 'linear',
+            'limit'     => 0
 
         ]);
         $this->assertInstanceOf('Illuminate\Support\Collection', $result);
@@ -63,13 +69,15 @@ class StorageTest extends TestCase
     /** @test */
     public function it_should_throw_error_when_reading()
     {
-        $this->influxEngine->store();
+        $this->influxWriter->store();
 
-        $result = $this->influxEngine->read('air_temp', [
-            'select'    => 'mean(value)',
-            'where'     => null,
-            'groupBy'   => null,
-            'fill'      => null
+        $result = $this->influxReader->read([
+            'select'    => ['mean(value)'],
+            'from'      => ['a'],
+            'where'     => '',
+            'groupBy'   => '',
+            'fill'      => '',
+            'limit'     => 0
         ]);
 
         $this->assertRegexp('/error/', $result['error']);

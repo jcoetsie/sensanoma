@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Sensanoma\Storage;
+namespace App\Sensanoma;
 
 class DataPoint
 {
@@ -12,6 +12,26 @@ class DataPoint
     protected $crop;
     protected $measurement;
     protected $value;
+
+    public function __construct(Array $points = [])
+    {
+        if(!empty($points)) {
+            $this->hydrate($points);
+        }
+    }
+
+    public function hydrate(Array $datas)
+    {
+        foreach ($datas as $key => $value)
+        {
+            $method = 'set'.ucfirst($key);
+
+            if (method_exists($this, $method))
+            {
+                $this->$method($value);
+            }
+        }
+    }
 
     /**
      * @return mixed
@@ -27,7 +47,7 @@ class DataPoint
     public function setTimestamp($timestamp)
     {
         if(!is_int($timestamp)) {
-            abort(417, 'Invalid time format');
+            abort(417, 'Invalid int format for timestamp');
         }
         $this->timestamp = $timestamp;
     }
@@ -46,7 +66,7 @@ class DataPoint
     public function setAccountId($account_id)
     {
         if(!is_int($account_id)) {
-            abort(417, 'Invalid int format');
+            abort(417, 'Invalid int format for account_id');
         }
         $this->account_id = $account_id;
     }
@@ -65,7 +85,7 @@ class DataPoint
     public function setArea($area)
     {
         if(!is_string($area)) {
-            abort(417, 'Invalid string format');
+            abort(417, 'Invalid string format for area name');
         }
         $this->area = $area;
     }
@@ -84,7 +104,7 @@ class DataPoint
     public function setZone($zone)
     {
         if(!is_string($zone)) {
-            abort(417, 'Invalid string format');
+            abort(417, 'Invalid string format for zone name');
         }
         $this->zone = $zone;
     }
@@ -103,7 +123,7 @@ class DataPoint
     public function setCrop($crop)
     {
         if(!is_string($crop)) {
-            abort(417, 'Invalid string format');
+            abort(417, 'Invalid string format for crop name');
         }
         $this->crop = $crop;
     }
@@ -122,7 +142,7 @@ class DataPoint
     public function setMeasurement($measurement)
     {
         if(!is_string($measurement)) {
-            abort(417, 'Invalid string format');
+            abort(417, 'Invalid string format for measurement name');
         }
         $this->measurement = $measurement;
     }
@@ -141,7 +161,7 @@ class DataPoint
     public function setValue($value)
     {
         if(!is_int($value)) {
-            abort(417, 'Invalid int format');
+            abort(417, 'Invalid int format for value');
         }
         $this->value = $value;
     }
@@ -160,7 +180,7 @@ class DataPoint
     public function setSensornodeId($sensornode_id)
     {
         if(!is_int($sensornode_id)) {
-            abort(417, 'Invalid int format');
+            abort(417, 'Invalid int format for sensor node id');
         }
         $this->sensornode_id = $sensornode_id;
     }
