@@ -55,15 +55,18 @@ class StorageTest extends TestCase
         $this->influxWriter->store();
 
         $result = $this->influxReader->read([
-            'select'    => ['mean(value)'],
+            'select'    => ['*'],
             'from'      => ['air_temp'],
-            'where'     => 'time > now() - 1d',
-            'groupBy'   => 'time(10m)',
-            'fill'      => 'linear',
-            'limit'     => 0
+            'where'     => '',
+            'groupBy'   => '',
+            'fill'      => '',
+            'limit'     => 1
+
 
         ]);
+
         $this->assertInstanceOf('Illuminate\Support\Collection', $result);
+        $this->assertEquals($result->count(), 1);
     }
 
     /** @test */
@@ -71,16 +74,16 @@ class StorageTest extends TestCase
     {
         $this->influxWriter->store();
 
-        $result = $this->influxReader->read([
-            'select'    => ['mean(value)'],
-            'from'      => ['a'],
+         $result = $this->influxReader->read([
+            'select'    => ['asmean(value)'],
+            'from'      => ['air_temp'],
             'where'     => '',
             'groupBy'   => '',
             'fill'      => '',
             'limit'     => 0
         ]);
 
-        $this->assertRegexp('/error/', $result['error']);
+        $this->assertArrayHasKey('error', $result);
     }
 
     /** @test */

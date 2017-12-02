@@ -71,14 +71,17 @@ class HomeControllerTest extends TestCase
     /** @test */
     public function a_unregistered_user_can_register()
     {
-        $response = $this->post(route('register'), [
-            'name'                  => 'test',
-            'email'                 => 'test@example.com',
+        $this->post(route('register'), [
+            'name'                  => 'JhonDoe',
+            'email'                 => 'Jdoe@example.com',
             'password'              => 'secret',
             'password_confirmation' => 'secret',
             '_token'                => csrf_token()
         ]);
 
-        $response->assertRedirect('/');
+        $this->assertDatabaseHas('users', [
+            'name'  => 'JhonDoe',
+            'email' => 'Jdoe@example.com'
+        ]);
     }
 }
