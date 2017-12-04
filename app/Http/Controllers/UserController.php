@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\UserRequest;
 use App\Models\User;
 use Auth;
+use File;
 use Illuminate\Support\Facades\Hash;
 use Image;
 
@@ -11,72 +12,41 @@ class UserController extends Controller
 {
     public function profile()
     {
-        return view('user.profile',array('user'=>Auth::user() ));
+        if(Auth::user()->hasRole('admin')){
+            return view('user.profile');
+        }else{
+            return view('user.viewerProfile');
+        }
     }
 
-    public function update(UserRequest $request, User $user){
-
-        $user = Auth::user();
-
-
+    public function update(UserRequest $request){
 
         if($request->hasFile('avatar')) {
-            $oldavatar = $user->avatar;
-            \File::delete('uploads/avatars/' . $oldavatar);
+            $oldavatar = Auth::user()->avatar;
+            File::delete('uploads/avatars/' . $oldavatar);
 
             $avatar = $request->file('avatar');
             $filename = time() . '.' . $avatar->getClientOriginalExtension();
             Image::make($avatar)->fit(200,200)
-                                ->save(public_path('uploads/avatars/' . $filename));
-
-                $user->avatar = $filename;
-                $user->save();
-
-        } else if($request->input('name')) {
-            Auth::user()->update($request->toArray());
+                ->save(public_path('uploads/avatars/' . $filename));
+            $request->merge(['avatar' => $filename]);
         }
 
 
-
-
-        /*else {
-
-            if($request->input('current_password')) {
-                $current_password = $request->input('current_password');
-
-                if(Hash::check($current_password, auth()->user()->getAuthPassword())) {
-                    $user->password = Hash::make($request->input('password'));
-                    $user->name = $request['name'];
-                    $user->save();
-                }
-            }
-
-            //Auth::user()->update($request->toArray());
+        if(!empty($request->input('current_password')) && ! Hash::check($request['current_password'], Auth::user()->getAuthPassword()) ) {
+            return redirect()->back()->with('danger', 'Password invalid');
         }
 
-        /*
-        else if($request->input('name')) {
-            Auth::user()->update($request->toArray());
-        }
-        else if($request->input('current_password')){
-            $password = $request->input('password');
-            dd($password);
+        Auth::user()->update([
+            'name'      => $request->input('name'),
+            'password'  => (!empty($request->input('password'))) ? Hash::make($request['password']) : Auth::user()->password,
+            'avatar'    => (!empty($request->input('avatar'))) ? $filename : Auth::user()->avatar
+        ]);
 
-            if($request->input('current_password') == Auth::user()->password){
+        return view('user.profile')->with('success', 'The account has been updated.');
 
-                $newpwd = $request->input('password');
-
-                $user = Auth::user();
-
-                $user->password = bcrypt($newpwd);
-
-                $user->save();
-            }
-        }
-        */
-
-        return view('user.profile',array('user'=>Auth::user() ));
     }
+
 
     public function destroy(User $user){
 
@@ -94,8 +64,7 @@ class UserController extends Controller
 
     public function viewerDestroy($id){
 
-        //travaille a faire ici encle
-        $user = User::find($id);
+        $user = Auth::user()->account->users()->find($id);
 
         $user->delete();
 

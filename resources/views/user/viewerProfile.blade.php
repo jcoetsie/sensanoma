@@ -1,4 +1,4 @@
-@extends('adminlte::page')
+@extends('adminlte::pageUser')
 
 @section('content_header')
     @include('layouts.flash')

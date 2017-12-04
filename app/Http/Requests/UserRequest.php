@@ -25,12 +25,11 @@ class UserRequest extends FormRequest
     {
         return [
 
-            'name' => 'required|min:3',
-            'avatar' => 'image',
-            'current_password' => 'required|string|min:6',
-            'password' => 'required|string|min:6|confirmed',
+            'name' => 'nullable|min:3',
+            'avatar' => 'nullable|image',
+            'current_password' => 'nullable|string|min:6',
+            'password' => 'nullable|required_with:current_password|string|min:6|confirmed',
         ];
     }
-
 
 }
