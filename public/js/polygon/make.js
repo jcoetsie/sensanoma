@@ -1,5 +1,4 @@
 function makePolygon() {
-
     document.querySelector('#area').style.display = "block";
 
     var map = new google.maps.Map(document.getElementById('area'), {
