@@ -36,9 +36,9 @@ class ZoneControllerAdminTest extends TestCase
     }
 
     /** @test **/
-    public function it_should_return_a_collection_of_zones()
+    public function it_should_return_a_sensorNode()
     {
-        $this->assertInstanceOf('Illuminate\Database\Eloquent\Collection', $this->zone->sensorNodes()->get());
+        $this->assertInstanceOf('App\Models\SensorNode', $this->zone->sensorNodes()->get()->first());
     }
 
     /** @test **/

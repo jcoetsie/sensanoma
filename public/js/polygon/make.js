@@ -1,5 +1,4 @@
 function makePolygon(map) {
-
     document.querySelector('#area').style.display = "block";
 
     var map;
@@ -59,5 +58,4 @@ function makePolygon(map) {
 
         document.querySelector('#coordinates').value = myCoords;
     });
-
 }

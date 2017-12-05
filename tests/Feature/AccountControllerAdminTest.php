@@ -27,19 +27,19 @@ class AccountControllerAdminTest extends TestCase
         $this->userAdmin->attachRole('admin');
 
         // Create a sensor node
-        $sensorNode = factory(SensorNode::class)->create();
+        $sensorNode = factory(SensorNode::class)->create(['account_id' => $this->userAdmin->account->id]);
     }
 
     /** @test **/
-    public function it_should_return_a_collection_of_users()
+    public function it_should_return_an_user()
     {
-        $this->assertInstanceOf('Illuminate\Database\Eloquent\Collection', $this->userAdmin->account->users);
+        $this->assertInstanceOf('App\Models\User', $this->userAdmin->account->users->first());
     }
 
     /** @test **/
-    public function it_should_return_a_collection_of_sensorNodes()
+    public function it_should_return_a_sensorNodes()
     {
-        $this->assertInstanceOf('Illuminate\Database\Eloquent\Collection', $this->userAdmin->account->sensorNodes);
+        $this->assertInstanceOf('App\Models\SensorNode', $this->userAdmin->account->sensorNodes->first());
     }
 
     /** @test **/

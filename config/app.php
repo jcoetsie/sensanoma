@@ -168,6 +168,7 @@ return [
          * Package Service Providers...
          */
         Spatie\Html\HtmlServiceProvider::class,
+        TrayLabs\InfluxDB\Providers\ServiceProvider::class,
 
         /*
          * Application Service Providers...
@@ -231,6 +232,7 @@ return [
         'Html' => Spatie\Html\Facades\Html::class,
         'Image' => Intervention\Image\Facades\Image::class,
         'Mapper' => Cornford\Googlmapper\Facades\MapperFacade::class,
+        'InfluxDB' => TrayLabs\InfluxDB\Facades\InfluxDB::class,
     ],
 
 ];
