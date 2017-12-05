@@ -125,7 +125,6 @@ namespace App\Models{
  * @property int $id
  * @property string $name
  * @property string $email
- * @property string $avatar
  * @property string $password
  * @property string|null $remember_token
  * @property \Carbon\Carbon|null $created_at
@@ -136,7 +135,6 @@ namespace App\Models{
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Permission[] $permissions
  * @property-read \Illuminate\Database\Eloquent\Collection|\App\Models\Role[] $roles
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereAccountId($value)
- * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereAvatar($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereCreatedAt($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereEmail($value)
  * @method static \Illuminate\Database\Eloquent\Builder|\App\Models\User whereId($value)

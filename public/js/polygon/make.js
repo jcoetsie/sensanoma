@@ -27,12 +27,12 @@ function makePolygon(map) {
         }); } else {
         // Browser doesn't support Geolocation
         handleLocationError(false, marker, map.getCenter());
-            }
+    }
 
-        function handleLocationError(marker, pos) {
-            marker.setPosition(pos);
-            marker.open(map);
-        }
+    function handleLocationError(marker, pos) {
+        marker.setPosition(pos);
+        marker.open(map);
+    }
 
     var drawingManager = new google.maps.drawing.DrawingManager({
         drawingMode: google.maps.drawing.OverlayType.POLYGON,

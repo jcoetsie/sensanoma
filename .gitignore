@@ -1,5 +1,4 @@
 .idea/
-vendor/
 report/
 node_modules/
 npm-debug.log
@@ -55,3 +54,4 @@ Temporary Items
 .apdisk
 
 /public/uploads/avatars/
+/vendor/

@@ -12,11 +12,11 @@ class UserController extends Controller
 {
     public function profile()
     {
-        if(Auth::user()->hasRole('admin')){
+        if(Auth::user()->hasRole('admin')) {
             return view('user.profile');
-        }else{
-            return view('user.viewerProfile');
         }
+
+        return view('user.viewerProfile');
     }
 
     public function update(UserRequest $request){

@@ -11,6 +11,11 @@ class DatabaseSeeder extends Seeder
     public function run()
     {
 
+        $path = public_path() .'/uploads/avatars';
+        if(!is_dir($path)) {
+            File::makeDirectory($path, 0777, true);
+        }
+
         factory(App\Models\Role::class)->create();
         factory(App\Models\Role::class)->create([
             'name' => 'viewer',
