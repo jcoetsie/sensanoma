@@ -34,23 +34,19 @@ class InfluxQueryBuilder
 
     public function where($clause)
     {
-        $this->where = $clause;
+        ($clause) ? $this->where = "WHERE $clause" : $this->where = '';
         return $this;
     }
 
-    public function groupBy($clauseGroup)
+    public function groupBy($groupBy)
     {
-        if ($clauseGroup) {
-            $this->groupBy = "GROUP BY $clauseGroup";
-        }
+        ($groupBy) ? $this->groupBy = "GROUP BY $groupBy" : $this->groupBy = '';
         return $this;
     }
 
-    public function fill($fill)
+    public function fill($fill = null)
     {
-        if ($fill) {
-            $this->fill = "fill($fill)";
-        }
+        ($fill) ? $this->fill = "fill($fill)" : $this->fill = '';
         return $this;
     }
 
@@ -61,6 +57,6 @@ class InfluxQueryBuilder
 
     public function build()
     {
-        return trim("SELECT $this->select FROM $this->from WHERE $this->where $this->groupBy $this->fill LIMIT $this->limit");
+        return trim(preg_replace("/ {2,}/", " ", "SELECT $this->select FROM $this->from $this->where $this->groupBy $this->fill LIMIT $this->limit"));
     }
 }

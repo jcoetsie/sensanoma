@@ -10,7 +10,7 @@ use Illuminate\Support\Carbon;
 use Illuminate\Support\Collection;
 
 
-class influx extends Command
+class Influx extends Command
 {
     /**
      * The name and signature of the console command.
