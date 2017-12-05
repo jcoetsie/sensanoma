@@ -32,6 +32,5 @@ function makePolygon() {
 
         document.querySelector('#coordinates').value = myCoords;
     });
-
 }
 
