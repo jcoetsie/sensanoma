@@ -51,12 +51,12 @@ class InfluxQueryBuilder
     }
 
     public function limit($limit = null) {
-        ($limit) ? $this->limit = $limit : $this->limit = 0;
+        ($limit) ? $this->limit = 'LIMIT ' .$limit : $this->limit = '';
         return $this;
     }
 
     public function build()
     {
-        return trim(preg_replace("/ {2,}/", " ", "SELECT $this->select FROM $this->from $this->where $this->groupBy $this->fill LIMIT $this->limit"));
+        return trim(preg_replace("/ {2,}/", " ", "SELECT $this->select FROM $this->from $this->where $this->groupBy $this->fill $this->limit"));
     }
 }
