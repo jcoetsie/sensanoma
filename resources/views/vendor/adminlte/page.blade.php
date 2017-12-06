@@ -48,13 +48,15 @@
                 <!-- logo for regular state and mobile devices -->
                 <span class="logo-lg">{!! config('adminlte.logo', '<b>Admin</b>LTE') !!}</span>
             </a>
-
             <!-- Header Navbar -->
             <nav class="navbar navbar-static-top" role="navigation">
                 <!-- Sidebar toggle button-->
+                @if(Auth::user()->hasRole('admin'))
+
                 <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
                     <span class="sr-only">{{ trans('adminlte::adminlte.toggle_navigation') }}</span>
                 </a>
+                @endif
             @endif
                 <!-- Navbar Right Menu -->
                 <div class="navbar-custom-menu">
@@ -70,11 +72,11 @@
                             </a>
                             <ul class="dropdown-menu" role="menu">
 
-                                <!-- if user is admin -->
-                                <li><a href="{{ route('account.show', Auth::user()->account) }}">
-                                        <i class="fa fa-btn fa-user"></i>Account Settings</a>
-                                </li>
-                                <!-- ----- -->
+                                @if(Auth::user()->hasRole('admin'))
+                                    <li><a href="{{ route('account.show', Auth::user()->account) }}">
+                                            <i class="fa fa-btn fa-user"></i>Account Settings</a>
+                                    </li>
+                                @endif
 
                                 <li><a href="{{ url('/user') }}">
                                         <i class="fa fa-btn fa-user"></i>User Settings</a>
@@ -111,26 +113,29 @@
                 @endif
             </nav>
         </header>
+        @if(Auth::user()->hasRole('admin'))
 
-        @if(config('adminlte.layout') != 'top-nav')
-        <!-- Left side column. contains the logo and sidebar -->
-        <aside class="main-sidebar">
+            @if(config('adminlte.layout') != 'top-nav')
+            <!-- Left side column. contains the logo and sidebar -->
+            <aside class="main-sidebar">
 
-            <!-- sidebar: style can be found in sidebar.less -->
-            <section class="sidebar">
+                <!-- sidebar: style can be found in sidebar.less -->
+                <section class="sidebar">
 
-                <!-- Sidebar Menu -->
-                <ul class="sidebar-menu" data-widget="tree">
-                    @each('adminlte::partials.menu-item', $adminlte->menu(), 'item')
-                </ul>
-                <!-- /.sidebar-menu -->
-            </section>
-            <!-- /.sidebar -->
-        </aside>
+                    <!-- Sidebar Menu -->
+                    <ul class="sidebar-menu" data-widget="tree">
+                        @each('adminlte::partials.menu-item', $adminlte->menu(), 'item')
+                    </ul>
+                    <!-- /.sidebar-menu -->
+                </section>
+                <!-- /.sidebar -->
+            </aside>
+            @endif
+
         @endif
-
         <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper">
+
+        <div class="content-wrapper" @if(!Auth::user()->hasRole('admin')) style='margin-left: 0' @endif>
             @if(config('adminlte.layout') == 'top-nav')
             <div class="container">
             @endif
