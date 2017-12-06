@@ -60,29 +60,62 @@
             @endif
                 <!-- Navbar Right Menu -->
                 <div class="navbar-custom-menu">
-
                     <ul class="nav navbar-nav">
-                        <li>
-                            <img class="img-circle avatar" src="/uploads/avatars/{{ Auth::user()->avatar }}" alt="User Avatar">
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 
+                        <li class="dropdown notifications-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                <i class="fa fa-bell"></i>
+                                <span class="label label-warning">3</span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li class="header">You have 3 notifications</li>
+                                <li>
+                                    <!-- inner menu: contains the actual data -->
+                                    <ul class="menu">
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa fa-warning text-yellow"></i> Air Temp too high
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa fa-warning text-yellow"></i> Soil Humidity too low
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa fa-warning text-red"></i> Sensor Voltage too high
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle hidden-xs" data-toggle="dropdown" aria-expanded="false">
+                                <img class="img-circle avatar" src="/uploads/avatars/{{ Auth::user()->avatar }}" alt="User Avatar">
                                 {{ Auth::user()->name }}<span class="caret"></span>
                             </a>
+
+                            <a href="#" class="dropdown-toggle hidden-sm hidden-md hidden-lg" data-toggle="dropdown" aria-expanded="false">
+                                <img class="img-circle avatar" src="/uploads/avatars/{{ Auth::user()->avatar }}" alt="User Avatar">
+                                <span class="caret"></span>
+                            </a>
+
                             <ul class="dropdown-menu" role="menu">
 
                                 @if(Auth::user()->hasRole('admin'))
-                                    <li><a href="{{ route('account.show', Auth::user()->account) }}">
+                                    <li><a href="{{ route('account.show', Auth::user()->account) }}" class="blacked">
                                             <i class="fa fa-btn fa-user"></i>Account Settings</a>
                                     </li>
                                 @endif
 
-                                <li><a href="{{ url('/user') }}">
+                                <li><a href="{{ url('/user') }}" class="blacked">
                                         <i class="fa fa-btn fa-user"></i>User Settings</a>
                                 </li>
 
-                                <li class="divider"></li>
+                                <li class="divider blacked"></li>
                                 <li>
                                     @if(config('adminlte.logout_method') == 'GET' || !config('adminlte.logout_method') && version_compare(\Illuminate\Foundation\Application::VERSION, '5.3.0', '<'))
                                         <a href="{{ url(config('adminlte.logout_url', 'auth/logout')) }}">
@@ -90,7 +123,7 @@
                                         </a>
                                     @else
                                         <a href="#"
-                                           onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+                                           onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="blacked"
                                         >
                                             <i class="fa fa-fw fa-power-off"></i> {{ trans('adminlte::adminlte.log_out') }}
                                         </a>
