@@ -25,7 +25,7 @@ class InfluxCommandTest extends TestCase
     {
         $this->influxWriter->drop();
 
-        Artisan::call('influx:seed');
+        Artisan::call('influx:seed', ['--test' => true]);
 
         $output = Artisan::output();
 
