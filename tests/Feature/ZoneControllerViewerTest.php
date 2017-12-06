@@ -51,7 +51,7 @@ class ZoneControllerViewerTest extends TestCase
         $response = $this->actingAs($this->userViewer)
             ->get(route('zone.index'));
 
-        $response->assertStatus(200);
+        $response->assertRedirect('/');
     }
 
     /** @test **/
@@ -60,7 +60,7 @@ class ZoneControllerViewerTest extends TestCase
         $response = $this->actingAs($this->userViewer)
             ->get(route('zone.show', $this->zone));
 
-        $response->assertStatus(200);
+        $response->assertRedirect('/');
     }
 
     /** @test **/
@@ -69,7 +69,7 @@ class ZoneControllerViewerTest extends TestCase
         $response = $this->actingAs($this->userViewer)
             ->get(route('zone.create'));
 
-        $response->assertSessionHas('warning');
+        $response->assertRedirect('/');
     }
 
     /** @test **/
@@ -78,7 +78,8 @@ class ZoneControllerViewerTest extends TestCase
         $response = $this->actingAs($this->userViewer)
             ->post(route('zone.store', $this->zone), ['name' => 'newName', 'crop' => 'newCrop', 'coordinates' => '{}', 'area_id' => 1]);
 
-        $response->assertSessionHas('warning');
+        $response->assertRedirect('/');
+        $this->assertDatabaseMissing('zones', ['name' => 'newName']);
     }
 
     /** @test **/
@@ -87,7 +88,7 @@ class ZoneControllerViewerTest extends TestCase
         $response = $this->actingAs($this->userViewer)
             ->get(route('zone.edit', $this->zone));
 
-        $response->assertSessionHas('warning');
+        $response->assertRedirect('/');
     }
 
     /** @test **/
@@ -95,7 +96,9 @@ class ZoneControllerViewerTest extends TestCase
     {
         $response = $this->actingAs($this->userViewer)
             ->put(route('zone.update', $this->zone), ['name' => 'newName', 'crop' => 'newCrop', 'coordinates' => '{}', 'area_id' => 1]);
-        $response->assertSessionHas('warning');
+
+        $response->assertRedirect('/');
+        $this->assertDatabaseMissing('zones', ['name' => 'newName']);
     }
 
     /** @test **/
@@ -104,7 +107,8 @@ class ZoneControllerViewerTest extends TestCase
         $response = $this->actingAs($this->userViewer)
             ->delete(route('zone.destroy', $this->zone));
 
-        $response->assertSessionHas('warning');
+        $response->assertRedirect('/');
+        $this->assertDatabaseHas('zones', ['name' => $this->zone->name]);
     }
 
 }

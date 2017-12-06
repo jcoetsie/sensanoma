@@ -77,6 +77,7 @@ class AccountControllerAdminTest extends TestCase
             ->put(route('account.update', $this->userAdmin->account), ['name' => 'newName']);
 
         $response->assertSessionHas('success');
+        $this->assertDatabaseHas('accounts', ['name' => 'newName']);
     }
 
     /** @test **/
@@ -86,6 +87,8 @@ class AccountControllerAdminTest extends TestCase
             ->delete(route('account.destroy', $this->userAdmin->account));
 
         $response->assertSessionHas('success');
+        $this->assertDatabaseMissing('accounts', ['name' => $this->userAdmin->account->name]);
+
     }
 
 }

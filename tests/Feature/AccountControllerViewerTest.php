@@ -30,21 +30,21 @@ class AccountControllerViewerTest extends TestCase
     }
 
     /** @test **/
-    public function a_user_with_viewer_role_can_index_his_account()
+    public function a_user_with_viewer_role_cannot_index_his_account()
     {
         $response = $this->actingAs($this->userViewer)
             ->get(route('account.index'));
 
-        $response->assertStatus(200);
+        $response->assertRedirect('/');
     }
 
     /** @test **/
-    public function a_user_with_viewer_role_can_show_his_account()
+    public function a_user_with_viewer_role_cannot_show_his_account()
     {
         $response = $this->actingAs($this->userViewer)
             ->get(route('account.show', $this->userViewer->account));
 
-        $response->assertStatus(200);
+        $response->assertRedirect('/');
     }
 
     /** @test **/
@@ -53,16 +53,17 @@ class AccountControllerViewerTest extends TestCase
         $response = $this->actingAs($this->userViewer)
             ->get(route('account.edit', $this->userViewer->account));
 
-        $response->assertSessionHas('warning');
+        $response->assertRedirect('/');
     }
 
     /** @test **/
     public function a_user_with_viewer_role_cannot_update_his_account()
     {
         $response = $this->actingAs($this->userViewer)
-            ->put(route('account.update', $this->userViewer->account));
+            ->put(route('account.update', $this->userViewer->account, ['name' => 'newName']));
 
-        $response->assertSessionHas('warning');
+        $response->assertRedirect('/');
+        $this->assertDatabaseMissing('accounts', ['name' => 'newName']);
     }
 
     /** @test **/
@@ -71,7 +72,8 @@ class AccountControllerViewerTest extends TestCase
         $response = $this->actingAs($this->userViewer)
             ->delete(route('account.destroy', $this->userViewer->account));
 
-        $response->assertSessionHas('warning');
+        $response->assertRedirect('/');
+        $this->assertDatabaseHas('accounts', ['name' => $this->userViewer->account->name]);
     }
 
 

@@ -105,6 +105,7 @@ class SensorNodeControllerAdminTest extends TestCase
             ->put(route('sensor_node.update', $this->sensorNode), ['name' => 'newName', 'zone_id' => 1, 'account_id' => 1, 'type' => 'newType']);
 
         $response->assertSessionHas('success');
+        $this->assertDatabaseHas('sensor_nodes', ['name' => 'newName']);
     }
 
     /** @test **/
@@ -114,6 +115,7 @@ class SensorNodeControllerAdminTest extends TestCase
             ->delete(route('sensor_node.destroy', $this->sensorNode));
 
         $response->assertSessionHas('success');
+        $this->assertDatabaseMissing('sensor_nodes', ['name' => $this->sensorNode->name]);
     }
 
 }

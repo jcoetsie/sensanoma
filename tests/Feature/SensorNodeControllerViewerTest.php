@@ -46,21 +46,21 @@ class SensorNodeControllerViewerTest extends TestCase
     }
 
     /** @test **/
-    public function a_user_with_viewer_role_can_index_his_sensorNode()
+    public function a_user_with_viewer_role_cannot_index_his_sensorNode()
     {
         $response = $this->actingAs($this->userViewer)
             ->get(route('sensor_node.index'));
 
-        $response->assertStatus(200);
+        $response->assertRedirect('/');
     }
 
     /** @test **/
-    public function a_user_with_viewer_role_can_show_his_sensorNode()
+    public function a_user_with_viewer_role_cannot_show_his_sensorNode()
     {
         $response = $this->actingAs($this->userViewer)
             ->get(route('sensor_node.show', $this->sensorNode));
 
-        $response->assertStatus(200);
+        $response->assertRedirect('/');
     }
 
     /** @test **/
@@ -69,7 +69,7 @@ class SensorNodeControllerViewerTest extends TestCase
         $response = $this->actingAs($this->userViewer)
             ->get(route('sensor_node.create'));
 
-        $response->assertSessionHas('warning');
+        $response->assertRedirect('/');
     }
 
     /** @test **/
@@ -78,7 +78,8 @@ class SensorNodeControllerViewerTest extends TestCase
         $response = $this->actingAs($this->userViewer)
             ->post(route('sensor_node.store', $this->area), ['name' => 'newName', 'zone_id' => 1, 'account_id' => 1, 'type' => 'newType']);
 
-        $response->assertSessionHas('warning');
+        $response->assertRedirect('/');
+        $this->assertDatabaseMissing('sensor_nodes', ['name' => 'newName']);
     }
 
     /** @test **/
@@ -87,7 +88,7 @@ class SensorNodeControllerViewerTest extends TestCase
         $response = $this->actingAs($this->userViewer)
             ->get(route('sensor_node.edit', $this->sensorNode));
 
-        $response->assertSessionHas('warning');
+        $response->assertRedirect('/');
     }
 
     /** @test **/
@@ -96,7 +97,8 @@ class SensorNodeControllerViewerTest extends TestCase
         $response = $this->actingAs($this->userViewer)
             ->put(route('sensor_node.update', $this->sensorNode), ['name' => 'newName', 'zone_id' => 1, 'account_id' => 1, 'type' => 'newType']);
 
-        $response->assertSessionHas('warning');
+        $response->assertRedirect('/');
+        $this->assertDatabaseMissing('sensor_nodes', ['name' => 'newName']);
     }
 
     /** @test **/
@@ -105,7 +107,7 @@ class SensorNodeControllerViewerTest extends TestCase
         $response = $this->actingAs($this->userViewer)
             ->delete(route('sensor_node.destroy', $this->sensorNode));
 
-        $response->assertSessionHas('warning');
+        $response->assertRedirect('/');
+        $this->assertDatabaseHas('sensor_nodes', ['name' => $this->sensorNode->name]);
     }
-
 }

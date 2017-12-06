@@ -12,9 +12,6 @@ class StorageTest extends TestCase
 {
 
     public $dataPoint;
-    public $dataPoints;
-    public $influxWriter;
-    public $influxReader;
 
     public function setUp()
     {
@@ -22,68 +19,24 @@ class StorageTest extends TestCase
 
         // Make dataPoint
         $this->dataPoint = new DataPoint();
-        $this->dataPoint->setMeasurement('air_temp');
-        $this->dataPoint->setValue(random_int(1, 17));
-        $this->dataPoint->setArea('area1');
-        $this->dataPoint->setZone('zone1');
-        $this->dataPoint->setAccountId(random_int(1, 15));
-        $this->dataPoint->setSensornodeId(random_int(1, 100));
-        $this->dataPoint->setCrop('carrot');
-        $this->dataPoint->setTimestamp(time());
-
-        // Make Collection dataPoints
-        $this->dataPoints = new Collection();
-        $this->dataPoints->push($this->dataPoint);
-        $this->influxWriter = new InfluxWriter($this->dataPoints);
-        // Drop influx database
-        $this->influxWriter->drop();
-
-        $this->influxReader = new InfluxReader();
     }
 
     /** @test */
-    public function it_should_store_in_influx()
+    public function it_should_correctly_hydrate_datapoint()
     {
-        $result = $this->influxWriter->store();
-
-        $this->assertTrue($result);
-    }
-
-    /** @test */
-    public function it_should_read_influx_data()
-    {
-        $this->influxWriter->store();
-
-        $result = $this->influxReader->read([
-            'select'    => ['*'],
-            'from'      => ['air_temp'],
-            'where'     => '',
-            'groupBy'   => '',
-            'fill'      => '',
-            'limit'     => 1
-
-
+        $datapoint = new DataPoint([
+            'measurement'   => 'a',
+            'accountId'    => 1,
+            'sensornodeId' => 1,
+            'area'          => 'a',
+            'zone'          => 'a',
+            'crop'          => 'a',
+            'value'         => 1,
+            'timestamp'     => time()
         ]);
 
-        $this->assertInstanceOf('Illuminate\Support\Collection', $result);
-        $this->assertEquals($result->count(), 1);
-    }
-
-    /** @test */
-    public function it_should_throw_error_when_reading()
-    {
-        $this->influxWriter->store();
-
-         $result = $this->influxReader->read([
-            'select'    => ['asmean(value)'],
-            'from'      => ['air_temp'],
-            'where'     => '',
-            'groupBy'   => '',
-            'fill'      => '',
-            'limit'     => 0
-        ]);
-
-        $this->assertArrayHasKey('error', $result);
+        $this->assertInstanceOf('App\Sensanoma\DataPoint', $datapoint);
+        $this->assertEquals($datapoint, $datapoint);
     }
 
     /** @test */

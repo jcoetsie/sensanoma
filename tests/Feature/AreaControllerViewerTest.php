@@ -33,22 +33,22 @@ class AreaControllerViewerTest extends TestCase
     }
 
     /** @test **/
-    public function a_user_with_viewer_role_can_index_his_area()
+    public function a_user_with_viewer_role_cannot_index_his_area()
     {
         $response = $this->actingAs($this->userViewer)
             ->get(route('area.index'));
 
-        $response->assertStatus(200);
+        $response->assertRedirect('/');
     }
 
 
     /** @test **/
-    public function a_user_with_viewer_role_can_show_his_area()
+    public function a_user_with_viewer_role_cannot_show_his_area()
     {
         $response = $this->actingAs($this->userViewer)
             ->get(route('area.show', $this->area));
 
-        $response->assertStatus(200);
+        $response->assertRedirect('/');
     }
 
     /** @test **/
@@ -57,7 +57,7 @@ class AreaControllerViewerTest extends TestCase
         $response = $this->actingAs($this->userViewer)
             ->get(route('area.edit', $this->area));
 
-        $response->assertStatus(302);
+        $response->assertRedirect('/');
     }
 
     /** @test **/
@@ -66,7 +66,8 @@ class AreaControllerViewerTest extends TestCase
         $response = $this->actingAs($this->userViewer)
             ->put(route('area.update', $this->area), ['name' => 'newName', 'address' => 'newAddress', 'coordinates' => '{}']);
 
-        $response->assertSessionHas('warning');
+        $response->assertRedirect('/');
+        $this->assertDatabaseMissing('areas', ['name' => 'newName', 'address' => 'newAddress', 'coordinates' => '{}']);
     }
 
     /** @test **/
@@ -75,7 +76,8 @@ class AreaControllerViewerTest extends TestCase
         $response = $this->actingAs($this->userViewer)
             ->delete(route('area.destroy', $this->area));
 
-        $response->assertSessionHas('warning');
+        $response->assertRedirect('/');
+        $this->assertDatabaseHas('areas', ['name' => $this->area->name]);
     }
 
 }

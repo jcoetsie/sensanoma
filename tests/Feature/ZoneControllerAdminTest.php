@@ -75,6 +75,7 @@ class ZoneControllerAdminTest extends TestCase
             ->post(route('zone.store', $this->zone), ['name' => 'newName', 'crop' => 'newCrop', 'coordinates' => '{}', 'area_id' => 1]);
 
         $response->assertSessionHas('success');
+        $this->assertDatabaseHas('zones', ['name' => 'newName']);
     }
 
     /** @test **/
@@ -92,6 +93,7 @@ class ZoneControllerAdminTest extends TestCase
         $response = $this->actingAs($this->userAdmin)
             ->put(route('zone.update', $this->zone), ['name' => 'newName', 'crop' => 'newCrop', 'coordinates' => '{}', 'area_id' => 1]);
         $response->assertSessionHas('success');
+        $this->assertDatabaseHas('zones', ['name' => 'newName']);
     }
 
     /** @test **/
@@ -101,6 +103,7 @@ class ZoneControllerAdminTest extends TestCase
             ->delete(route('zone.destroy', $this->zone));
 
         $response->assertSessionHas('success');
+        $this->assertDatabaseMissing('zones', ['name' => $this->zone->name]);
     }
 
 }
