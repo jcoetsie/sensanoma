@@ -20,7 +20,8 @@ class Influx extends Command
     protected $signature = 'influx:seed
                                 {--measurement= : Seed influx with special measurement}
                                 {--crop= : Seed influx with special crop}
-                                {--wipe : Wipe old data}';
+                                {--wipe : Wipe old data}
+                                {--test : Only for testing purpose}';
 
     /**
      * The console command description.
@@ -46,10 +47,11 @@ class Influx extends Command
      */
     public function handle()
     {
-
         $options = $this->initializeOptions($this->options());
         $measurements = $this->initializeMeasurements($options);
         $crops = $this->initializeCrops($options);
+
+
 
         $faker = Faker::create();
         $carbon = Carbon::create();
@@ -64,9 +66,11 @@ class Influx extends Command
             $storage->drop();
         }
 
+        $times = ($this->option('test')) ? 10 : 10000;
+
         foreach ($measurements as $measurement) {
             $now = $carbon->now();
-            for ($i = 1; $i < 10000; $i++) {
+            for ($i = 1; $i < $times; $i++) {
                 $now->subMinutes(10);
                 $dataPoint = new DataPoint();
                 $dataPoint->setMeasurement($measurement);
