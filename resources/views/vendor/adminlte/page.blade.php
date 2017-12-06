@@ -48,39 +48,74 @@
                 <!-- logo for regular state and mobile devices -->
                 <span class="logo-lg">{!! config('adminlte.logo', '<b>Admin</b>LTE') !!}</span>
             </a>
-
             <!-- Header Navbar -->
             <nav class="navbar navbar-static-top" role="navigation">
                 <!-- Sidebar toggle button-->
+                @if(Auth::user()->hasRole('admin'))
+
                 <a href="#" class="sidebar-toggle" data-toggle="push-menu" role="button">
                     <span class="sr-only">{{ trans('adminlte::adminlte.toggle_navigation') }}</span>
                 </a>
+                @endif
             @endif
                 <!-- Navbar Right Menu -->
                 <div class="navbar-custom-menu">
-
                     <ul class="nav navbar-nav">
-                        <li>
-                            <img class="img-circle avatar" src="/uploads/avatars/{{ Auth::user()->avatar }}" alt="User Avatar">
-                        </li>
-                        <li class="dropdown">
-                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
 
+                        <li class="dropdown notifications-menu">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                                <i class="fa fa-bell"></i>
+                                <span class="label label-warning">3</span>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li class="header">You have 3 notifications</li>
+                                <li>
+                                    <!-- inner menu: contains the actual data -->
+                                    <ul class="menu">
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa fa-warning text-yellow"></i> Air Temp too high
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa fa-warning text-yellow"></i> Soil Humidity too low
+                                            </a>
+                                        </li>
+                                        <li>
+                                            <a href="#">
+                                                <i class="fa fa-warning text-red"></i> Sensor Voltage too high
+                                            </a>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                        </li>
+
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle hidden-xs" data-toggle="dropdown" aria-expanded="false">
+                                <img class="img-circle avatar" src="/uploads/avatars/{{ Auth::user()->avatar }}" alt="User Avatar">
                                 {{ Auth::user()->name }}<span class="caret"></span>
                             </a>
+
+                            <a href="#" class="dropdown-toggle hidden-sm hidden-md hidden-lg" data-toggle="dropdown" aria-expanded="false">
+                                <img class="img-circle avatar" src="/uploads/avatars/{{ Auth::user()->avatar }}" alt="User Avatar">
+                                <span class="caret"></span>
+                            </a>
+
                             <ul class="dropdown-menu" role="menu">
 
-                                <!-- if user is admin -->
-                                <li><a href="{{ route('account.show', Auth::user()->account) }}">
-                                        <i class="fa fa-btn fa-user"></i>Account Settings</a>
-                                </li>
-                                <!-- ----- -->
+                                @if(Auth::user()->hasRole('admin'))
+                                    <li><a href="{{ route('account.show', Auth::user()->account) }}" class="blacked">
+                                            <i class="fa fa-btn fa-user"></i>Account Settings</a>
+                                    </li>
+                                @endif
 
-                                <li><a href="{{ url('/user') }}">
+                                <li><a href="{{ url('/user') }}" class="blacked">
                                         <i class="fa fa-btn fa-user"></i>User Settings</a>
                                 </li>
 
-                                <li class="divider"></li>
+                                <li class="divider blacked"></li>
                                 <li>
                                     @if(config('adminlte.logout_method') == 'GET' || !config('adminlte.logout_method') && version_compare(\Illuminate\Foundation\Application::VERSION, '5.3.0', '<'))
                                         <a href="{{ url(config('adminlte.logout_url', 'auth/logout')) }}">
@@ -88,7 +123,7 @@
                                         </a>
                                     @else
                                         <a href="#"
-                                           onclick="event.preventDefault(); document.getElementById('logout-form').submit();"
+                                           onclick="event.preventDefault(); document.getElementById('logout-form').submit();" class="blacked"
                                         >
                                             <i class="fa fa-fw fa-power-off"></i> {{ trans('adminlte::adminlte.log_out') }}
                                         </a>
@@ -111,26 +146,29 @@
                 @endif
             </nav>
         </header>
+        @if(Auth::user()->hasRole('admin'))
 
-        @if(config('adminlte.layout') != 'top-nav')
-        <!-- Left side column. contains the logo and sidebar -->
-        <aside class="main-sidebar">
+            @if(config('adminlte.layout') != 'top-nav')
+            <!-- Left side column. contains the logo and sidebar -->
+            <aside class="main-sidebar">
 
-            <!-- sidebar: style can be found in sidebar.less -->
-            <section class="sidebar">
+                <!-- sidebar: style can be found in sidebar.less -->
+                <section class="sidebar">
 
-                <!-- Sidebar Menu -->
-                <ul class="sidebar-menu" data-widget="tree">
-                    @each('adminlte::partials.menu-item', $adminlte->menu(), 'item')
-                </ul>
-                <!-- /.sidebar-menu -->
-            </section>
-            <!-- /.sidebar -->
-        </aside>
+                    <!-- Sidebar Menu -->
+                    <ul class="sidebar-menu" data-widget="tree">
+                        @each('adminlte::partials.menu-item', $adminlte->menu(), 'item')
+                    </ul>
+                    <!-- /.sidebar-menu -->
+                </section>
+                <!-- /.sidebar -->
+            </aside>
+            @endif
+
         @endif
-
         <!-- Content Wrapper. Contains page content -->
-        <div class="content-wrapper">
+
+        <div class="content-wrapper" @if(!Auth::user()->hasRole('admin')) style='margin-left: 0' @endif>
             @if(config('adminlte.layout') == 'top-nav')
             <div class="container">
             @endif
