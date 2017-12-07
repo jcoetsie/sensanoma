@@ -46,22 +46,15 @@ class UserController extends Controller
 
     public function destroy(User $user){
 
-        if(Auth::user()->hasRole('admin'))
-        {
-            Auth::user()->account()->delete();
+        if($user->hasRole('admin')) {
+            Auth::user()->account->destroy(Auth::user()->account_id);
         }
-        else
-        {
-            Auth::user()->destroy(Auth::id());
-        }
-
-        return redirect(route('home'))->with('success', 'The User has been deleted');
+        return redirect(route('home'));
     }
 
-    public function viewerDestroy($id){
+    public function viewerDestroy(User $user){
 
-        $user = Auth::user()->account->users()->find($id);
-
+        $user = Auth::user()->account->users()->find($user->id);
         $user->delete();
 
         return redirect(route('home'))->with('success', 'The User has been deleted');
